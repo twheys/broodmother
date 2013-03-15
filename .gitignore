@@ -4,3 +4,13 @@
 *.jar
 *.war
 *.ear
+
+# Eclipse Files #
+.classpath
+.project
+.settings/
+target/
+
+# Datanucleus Files #
+datanucleus.log
+nbactions.xml
