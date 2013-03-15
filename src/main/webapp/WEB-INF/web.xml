@@ -22,6 +22,7 @@
         <param-value>
             com.heys.dating.config.ApplicationConfig
             com.heys.dating.domain.config.JpaApplicationConfig
+            com.heys.dating.security.config.SecurityApplicationConfig
         </param-value>
     </context-param>
 
@@ -47,6 +48,16 @@
 		<servlet-name>web-dispatcher</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
+	
+	<filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 	
 	<listener>
 		<listener-class>
