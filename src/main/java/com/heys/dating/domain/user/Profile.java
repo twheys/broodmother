@@ -49,4 +49,10 @@ public class Profile extends AbstractEntity {
 	public void setHeadline(final String headline) {
 		this.headline = headline;
 	}
+
+	@Override
+	public String toString() {
+		return "Profile [customer=" + customer + ", description=" + description
+				+ ", headline=" + headline + ", galleries=" + galleries + "]";
+	}
 }

@@ -24,6 +24,12 @@ public abstract class AbstractEntity {
 	private Date modificationDate;
 	private long version;
 
+	public AbstractEntity() {
+		creationDate = new Date();
+		modificationDate = new Date();
+		version = 1L;
+	}
+
 	public Date getCreationDate() {
 		return creationDate;
 	}

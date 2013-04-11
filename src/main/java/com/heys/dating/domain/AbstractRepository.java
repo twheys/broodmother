@@ -1,9 +1,12 @@
 package com.heys.dating.domain;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NonUniqueResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -92,12 +95,37 @@ public abstract class AbstractRepository<TType extends AbstractEntity> {
 
 	}
 
+	/**
+	 * Since the JPA annoyingly throws an exception with the getSingleResult
+	 * method for a null result, this method wraps that and only throws an
+	 * exception if there are more than one results, returning just null if
+	 * there are no results.
+	 * 
+	 * @param query
+	 * @return
+	 */
+	protected TType getSingleResult(final TypedQuery<TType> query) {
+		final List<TType> results = query.setMaxResults(2).getResultList();
+		if (1 == results.size()) {
+			return results.get(0);
+		}
+		if (2 == results.size()) {
+			throw new NonUniqueResultException();
+		}
+		return null;
+	}
+
 	public <S extends TType> List<S> save(final Iterable<S> entities) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	public <S extends TType> S save(final S entity) {
+		final Date modificationDate = new Date();
+		if (null == entity.getCreationDate()) {
+			entity.setCreationDate(modificationDate);
+		}
+		entity.setModificationDate(modificationDate);
 		entityManager.persist(entity);
 		return entity;
 	}

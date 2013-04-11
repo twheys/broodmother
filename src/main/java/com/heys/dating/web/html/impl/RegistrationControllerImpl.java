@@ -13,14 +13,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.heys.dating.domain.repository.CustomerRepository;
 import com.heys.dating.domain.user.Customer;
 import com.heys.dating.service.CustomerManager;
 import com.heys.dating.web.html.RegistrationController;
-import com.heys.dating.web.html.dto.RegistrationForm;
+import com.heys.dating.web.html.dto.Registration;
 
 @Controller("RegistrationController")
 public class RegistrationControllerImpl implements RegistrationController {
@@ -32,25 +32,27 @@ public class RegistrationControllerImpl implements RegistrationController {
 	@Autowired
 	private CustomerManager customerManager;
 
+	@Autowired
+	private CustomerRepository customerRepository;
+
 	public RegistrationControllerImpl() {
 		logger.info("Starting Registration Controller");
 	}
 
-	private ModelAndView createRegisterSuccessModelAndView(final String login,
-			final String email) {
-		final Map<String, Object> data = new HashMap<String, Object>();
-		data.put("login", login);
-		data.put("email", email);
-		return new ModelAndView("registration-success", data);
-	}
-
 	private ModelAndView createRegistrationForm() {
-		return createRegistrationForm(null);
+		return createRegistrationForm(null, null);
 	}
 
-	private ModelAndView createRegistrationForm(final List<ObjectError> errors) {
+	private ModelAndView createRegistrationForm(
+			final Registration registration, final List<ObjectError> errors) {
 		final Map<String, Object> data = new HashMap<String, Object>();
-		data.put("command", new RegistrationForm());
+
+		if (null == registration) {
+			data.put("command", new Registration());
+		} else {
+			data.put("command", registration);
+		}
+
 		if (null != errors) {
 
 		}
@@ -69,26 +71,39 @@ public class RegistrationControllerImpl implements RegistrationController {
 	}
 
 	@Override
-	@RequestMapping(value = "/register", method = RequestMethod.GET)
-	public ModelAndView register() {
+	public ModelAndView getRegistrationPage() {
 		return createRegistrationForm();
 	}
 
 	@Override
-	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public ModelAndView submitRegistration(final RegistrationForm data,
+	public ModelAndView getRegistrationSuccessPage(
+			@PathVariable final String login) {
+		final Customer customer = customerRepository
+				.findByLoginIgnoreCase(login);
+		if (null == customer) {
+			logger.warning("Customer reached login success page for a non existing login: "
+					+ login);
+			return new ModelAndView("redirect:/register");
+		}
+
+		final Map<String, Object> data = new HashMap<String, Object>();
+		data.put("customer", customer);
+		return new ModelAndView("register-success", data);
+	}
+
+	@Override
+	public ModelAndView submitRegistration(final Registration data,
 			final BindingResult result) {
 		if (result.hasErrors()) {
 			logger.finest("Registration errors" + result.getAllErrors());
-			return createRegistrationForm(result.getAllErrors());
+			return createRegistrationForm(data, result.getAllErrors());
 		}
 
 		final Date birthdate = formatDate(data.getBirthdateDD(),
 				data.getBirthdateMM(), data.getBirthdateYYYY());
 		final Customer customer = customerManager.register(data.getLogin(),
 				data.getPassword(), data.getEmail(), birthdate);
-		return createRegisterSuccessModelAndView(customer.getLogin(),
-				customer.getEmail());
+		return new ModelAndView("redirect:/register/" + customer.getLogin());
 	}
 
 }
