@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:spring="http://www.springframework.org/tags">
+<head>
+</head>
+<body>
+<footer>
+
+</footer>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring3-3.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:tiles="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org" lang="en">
+
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+
+
+<body tiles:fragment="content">
+
+<header id="login_widget">
+
+	<!-- Login Form -->
+ 	<form method="post" th:action="@{/login/check}" action="/login/check" >
+
+		<label for="username" th:text="#{login.label.username}">User Name or Email</label>
+		<input id="username" name="username" type="text" />
+
+		<label for="password" th:text="#{login.label.password}">Password</label>
+		<input name="password" type="password" />
+	
+		<p>
+			<span th:text="#{login.link.rememberme}">Remember me?</span>			
+			<span th:text="#{login.link.fpassword}">Forgot Password?</span>
+		</p>
+
+		<input type="submit" name="Login" th:value="#{login.button.login}" value="Login" />
+
+	</form>
+</header>
+	
+</body>
+
+</html>

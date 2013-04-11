@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:spring="http://www.springframework.org/tags">
+<head>
+<title><spring:message code="page.login.title" /></title>
+</head>
+<body onload='document.f.username.focus();'>
+	<h3><spring:message code="page.login.title" /></h3>
+	
+	<spring:url var="processing_url" value='/login/check' />
+ 	<form id="f" method="post" action="${processing_url}" >
+
+		<spring:message code="form.login.label.username" />
+		<input id="username" name="username" type="text" value="${SPRING_SECURITY_LAST_USERNAME_KEY}" />
+
+		<spring:message code="form.login.label.password" />
+		<input name="password" type="password" />
+
+		<spring:message var="submitText" code="form.login.label.submit" />
+		<input type="submit" name="Login" value="${submitText}" />
+
+	</form>
+	
+	<p>
+		<spring:url var="register_url" value="/register" />
+		<a href="${register_url}">
+			<spring:message code="page.home.link.register" />
+		</a>
+	</p>
+</body>
+</html>

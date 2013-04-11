@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:spring="http://www.springframework.org/tags">
+<head>
+<title th:text="${home.title}">Dating Home</title>
+</head>
+<body>
+	<h3 th:text="${home.title}">Dating Home</h3>
+	<p th:text="${home.content1}">Lorem ipsum....</p>
+	
+	<p>
+		<a href="@{/login}" th:text="${home.link_login}">Login</a>
+	</p>
+	
+	<p>
+		<a href="@{/register}" th:text="${home.link_register}>Register
+		</a>
+	</p>
+</body>
+</html>

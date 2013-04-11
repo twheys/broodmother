@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:form="http://www.springframework.org/tags/form"
+	xmlns:spring="http://www.springframework.org/tags"
+	xmlns:jsp="http://java.sun.com/JSP/Page">
+<head>
+<title><spring:message code="page.login.title" /></title>
+</head>
+<body>
+	<h3><spring:message code="page.home.title" /></h3>
+	<p><spring:message code="page.home.content1" /></p>
+	
+	<p>
+		<spring:url var="login_url" value="/login" />
+		<a href="${login_url}">
+			<spring:message code="page.home.link.login" />
+		</a>
+	</p>
+	
+	<p>
+		<spring:url var="register_url" value="/register" />
+		<a href="${register_url}">
+			<spring:message code="page.home.link.register" />
+		</a>
+	</p>
+</body>
+</html>
