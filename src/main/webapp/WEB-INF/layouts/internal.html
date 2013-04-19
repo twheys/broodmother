@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:tiles="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org"
+      lang="en">
+
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    
+</head>
+
+
+<body>
+
+<header tiles:include="header"></header>
+
+<section>
+	<div tiles:include="profile"></div>
+	<div tiles:include="messages"></div>
+	<div tiles:include="side_ad"></div>
+</section>
+
+<section>
+	<div tiles:include="search"></div>
+	<div tiles:include="overview"></div>
+	<div tiles:include="large_ad"></div>
+	<div tiles:include="connections"></div>
+	<div tiles:include="recommended"></div>
+	<div tiles:include="visits"></div>
+	<div tiles:include="tips"></div>
+</section>
+
+<footer tiles:include="footer"></footer>
+
+</body>
+</html>

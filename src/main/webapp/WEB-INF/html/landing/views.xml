@@ -4,19 +4,21 @@
     "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
  
 <tiles-definitions>
-	<definition name="landingHeader" extends="headerLayout">
-		<put-attribute name="logo" value="html/header/logosmall :: content" type="thymeleaf"/>
-		<put-attribute name="topbar" value="html/header/language :: content" type="thymeleaf"/>
-	</definition>
 
-	<definition name="landing_default" extends="landingLayout">
+	<definition name="landing" extends="landingLayout">
         <put-attribute name="title" value="Dating Landing 1" type="string" />
         
-		<put-attribute name="header" value="landingHeader"/>
-		<put-attribute name="intro" value="html/landing/landing1 :: content" type="thymeleaf"/>
-		<put-attribute name="login" value="html/user/login :: content" type="thymeleaf"/>
-		<put-attribute name="register" value="html/user/register :: content" type="thymeleaf"/>
-		<put-attribute name="footer" value="html/footer/landing :: content" type="thymeleaf"/>
+		<put-attribute name="header.logo" value="html/header/logosmall.html :: content" type="thymeleaf"/>
+		<put-attribute name="header.login" value="html/member/login.html :: content" type="thymeleaf"/>
+		<put-attribute name="header.language" value="html/header/language.html :: content" type="thymeleaf"/>
+        
+		<put-attribute name="story1" value="landingRegistration"/>
+		<put-attribute name="story2" value="html/landing/seo.html :: content" type="thymeleaf"/>
+		<put-attribute name="footer" value="html/footer/landing.html :: content" type="thymeleaf"/>
+	</definition>
+	
+	<definition name="landingRegistration" template="html/landing/intro.html :: content" templateType="thymeleaf">
+		<put-attribute name="registration" value="html/member/register.html :: content"/>
 	</definition>
 	
 </tiles-definitions>

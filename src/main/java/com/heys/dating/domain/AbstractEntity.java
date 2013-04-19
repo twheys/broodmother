@@ -1,5 +1,6 @@
 package com.heys.dating.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -15,7 +16,9 @@ import com.google.appengine.api.datastore.Key;
 @Entity
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class AbstractEntity {
+public abstract class AbstractEntity implements Serializable {
+	private static final long serialVersionUID = -403483197909094703L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Key key;

@@ -11,11 +11,9 @@
 
 
 <body tiles:fragment="content">
-	
-	<div tiles:include="logo"></div>
-	
-	<div tiles:include="topbar"></div>
 
+	<h3 th:text="#{register-success.page.title}">Success!</h3>
+	<h3 th:text="#{register-success.page.content1(${member.login},${member.email})}">Success!</h3>
+	
 </body>
-
 </html>

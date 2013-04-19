@@ -6,11 +6,15 @@
 <tiles-definitions>
 	
 	<definition name="login" extends="standardLayout" templateType="thymeleaf">
-		<put-attribute name="page" value="html/user/login :: content" type="thymeleaf"/>
+		<put-attribute name="page" value="html/member/login.html :: content" type="thymeleaf"/>
 	</definition>
 	
 	<definition name="register" extends="standardLayout" templateType="thymeleaf">
-		<put-attribute name="page" value="html/user/register :: content" type="thymeleaf"/>
+		<put-attribute name="page" value="html/member/register.html :: content" type="thymeleaf"/>
 	</definition>
-    	
+	
+	<definition name="registerConfirmation" extends="standardLayout" templateType="thymeleaf">
+		<put-attribute name="page" value="html/member/confirmation.html :: content" type="thymeleaf"/>
+	</definition>
+	    	
 </tiles-definitions>

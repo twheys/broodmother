@@ -12,8 +12,19 @@
 
 <body tiles:fragment="content">
 
-<span id="language-selector" th:text="#{language.text.select}">Language</span><span th:text="#{language.text.value}">English</span>
-
+	<span id="language-selector" th:text="#{language.text.select}">Language</span>
+	:&nbsp;&nbsp;
+	<span id="current-language" th:text="#{language.text.value}">English</span>
+	
+	<div class="dropdown">
+		<ul>
+			<li><a href="?lang=en" class="selector en">English</a></li>
+			<li><a href="?lang=es" class="selector es">Español</a></li>
+			<li><a href="?lang=fr" class="selector fr">Fraçois</a></li>
+			<li><a href="?lang=de" class="selector de">Deutsch</a></li>
+			<li><a href="?lang=it" class="selector it">Italia</a></li>
+		</ul>
+	</div>
 </body>
 
 </html>

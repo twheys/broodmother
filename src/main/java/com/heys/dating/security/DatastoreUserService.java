@@ -8,8 +8,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
-import com.heys.dating.domain.repository.CustomerRepository;
-import com.heys.dating.domain.user.Customer;
+import com.heys.dating.domain.repository.MemberRepository;
+import com.heys.dating.domain.user.Member;
 
 @Component
 public class DatastoreUserService implements UserDetailsService {
@@ -17,13 +17,13 @@ public class DatastoreUserService implements UserDetailsService {
 			.getLogger(DatastoreUserService.class.getName());
 
 	@Autowired
-	private CustomerRepository customerRepository;
+	private MemberRepository customerRepository;
 
 	@Override
 	public UserDetails loadUserByUsername(final String identifier)
 			throws UsernameNotFoundException {
 		logger.info("Attempting to authorize " + identifier);
-		Customer customer = null;
+		Member customer = null;
 		customer = customerRepository.findByLoginOrEmailIgnoreCase(identifier);
 		if (null == customer) {
 			logger.info("User does not exist " + identifier);

@@ -9,7 +9,7 @@ import com.heys.dating.domain.AbstractEntity;
 
 @Entity
 public class Profile extends AbstractEntity {
-	private Customer customer;
+	private Member customer;
 	private String description;
 	private String headline;
 	private List<Gallery> galleries;
@@ -18,7 +18,7 @@ public class Profile extends AbstractEntity {
 		setGalleries(new ArrayList<Gallery>());
 	}
 
-	public Customer getCustomer() {
+	public Member getCustomer() {
 		return customer;
 	}
 
@@ -34,7 +34,7 @@ public class Profile extends AbstractEntity {
 		return headline;
 	}
 
-	public void setCustomer(final Customer customer) {
+	public void setCustomer(final Member customer) {
 		this.customer = customer;
 	}
 

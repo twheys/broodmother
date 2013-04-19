@@ -12,26 +12,28 @@
 
 <body tiles:fragment="content">
 
-<header id="login_widget">
+<p th:if="${error}" th:text="#{login.message.error}">Wrong user name or password!</p>
 
-	<!-- Login Form -->
- 	<form method="post" th:action="@{/login/check}" action="/login/check" >
+<form method="post" th:action="@{/gateway}" action="/login/check" >
 
+	<div>
 		<label for="username" th:text="#{login.label.username}">User Name or Email</label>
 		<input id="username" name="username" type="text" />
-
+	
 		<label for="password" th:text="#{login.label.password}">Password</label>
 		<input name="password" type="password" />
-	
-		<p>
-			<span th:text="#{login.link.rememberme}">Remember me?</span>			
-			<span th:text="#{login.link.fpassword}">Forgot Password?</span>
-		</p>
+	</div>
+
+	<div>
+		<a href="#" th:href="@{#}" th:text="#{login.link.fpassword}">Forgot Password?</a>
+
+		<label for="rememberme" th:text="#{login.link.rememberme}">Remember me?</label>		
+		<input id="rememberme" name="_spring_security_remember_me" type="checkbox" />
 
 		<input type="submit" name="Login" th:value="#{login.button.login}" value="Login" />
+	</div>
 
-	</form>
-</header>
+</form>
 	
 </body>
 

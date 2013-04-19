@@ -1,24 +1,39 @@
 package com.heys.dating.web.html.dto;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Email;
 
 public class Registration {
+	@NotNull
+	@Size(min = 3)
 	private String login;
+	@NotNull
+	@Pattern(regexp = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\\s).*$")
+	@Size(min = 8)
 	private String password;
+	@NotNull
+	@Email
 	private String email;
-	private String birthdateDD;
-	private String birthdateMM;
-	private String birthdateYYYY;
+	@NotNull
+	private Integer birthday;
+	@NotNull
+	private Integer birthmonth;
+	@NotNull
+	private Integer birthyear;
 
-	public String getBirthdateDD() {
-		return birthdateDD;
+	public Integer getBirthday() {
+		return birthday;
 	}
 
-	public String getBirthdateMM() {
-		return birthdateMM;
+	public Integer getBirthmonth() {
+		return birthmonth;
 	}
 
-	public String getBirthdateYYYY() {
-		return birthdateYYYY;
+	public Integer getBirthyear() {
+		return birthyear;
 	}
 
 	public String getEmail() {
@@ -33,16 +48,16 @@ public class Registration {
 		return password;
 	}
 
-	public void setBirthdateDD(final String birthdateDD) {
-		this.birthdateDD = birthdateDD;
+	public void setBirthday(final Integer birthday) {
+		this.birthday = birthday;
 	}
 
-	public void setBirthdateMM(final String birthdateMM) {
-		this.birthdateMM = birthdateMM;
+	public void setBirthmonth(final Integer birthmonth) {
+		this.birthmonth = birthmonth;
 	}
 
-	public void setBirthdateYYYY(final String birthdateYYYY) {
-		this.birthdateYYYY = birthdateYYYY;
+	public void setBirthyear(final Integer birthyear) {
+		this.birthyear = birthyear;
 	}
 
 	public void setEmail(final String email) {
@@ -55,6 +70,14 @@ public class Registration {
 
 	public void setPassword(final String password) {
 		this.password = password;
+	}
+
+	@Override
+	public String toString() {
+		return "Registration [login=" + login + ", password=" + password
+				+ ", email=" + email + ", birthday=" + birthday
+				+ ", birthmonth=" + birthmonth + ", birthyear=" + birthyear
+				+ "]";
 	}
 
 }

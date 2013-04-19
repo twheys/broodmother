@@ -4,29 +4,29 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.heys.dating.domain.AbstractRepository;
-import com.heys.dating.domain.repository.CustomerRepository;
-import com.heys.dating.domain.user.Customer;
+import com.heys.dating.domain.repository.MemberRepository;
+import com.heys.dating.domain.user.Member;
 
 @Repository
 @Transactional
-public class CustomerRepositoryImpl extends AbstractRepository<Customer>
-		implements CustomerRepository {
+public class MemberDatastoreRepository extends AbstractRepository<Member>
+		implements MemberRepository {
 
-	public CustomerRepositoryImpl() {
-		super(Customer.class);
+	public MemberDatastoreRepository() {
+		super(Member.class);
 	}
 
 	@Override
-	public Customer findByEmailIgnoreCase(final String email) {
+	public Member findByEmailIgnoreCase(final String email) {
 		return getSingleResult(entityManager.createQuery(
-				"select c from Customer c where c.email = :email", type)
+				"select c from Member c where c.email = :email", type)
 				.setParameter("email", email));
 	}
 
 	@Override
-	public Customer findByLoginIgnoreCase(final String login) {
+	public Member findByLoginIgnoreCase(final String login) {
 		return getSingleResult(entityManager.createQuery(
-				"select c from Customer c where c.login = :login", type)
+				"select c from Member c where c.login = :login", type)
 				.setParameter("login", login));
 	}
 
@@ -35,8 +35,8 @@ public class CustomerRepositoryImpl extends AbstractRepository<Customer>
 	 * queries are performed.
 	 */
 	@Override
-	public Customer findByLoginOrEmailIgnoreCase(final String identifier) {
-		Customer customer;
+	public Member findByLoginOrEmailIgnoreCase(final String identifier) {
+		Member customer;
 		if (null != (customer = findByLoginIgnoreCase(identifier))) {
 			return customer;
 		}

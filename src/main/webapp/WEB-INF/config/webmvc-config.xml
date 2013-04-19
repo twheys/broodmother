@@ -9,7 +9,7 @@
 	<!-- Enables controllers mapped with @RequestMapping annotations, formatting annotations @NumberFormat @DateTimeFormat, and JSR 303 style validation -->
 	<mvc:annotation-driven/>
 
-	<mvc:resources mapping="/resources/**" location="/, classpath:/META-INF/web-resources/" />
+	<mvc:resources mapping="/resources/**" location="/static/" />
 	<mvc:default-servlet-handler />
 
 	<!-- Map paths directly to view names without controller processing. Use the view-name attribute if necessary: by convention the view name equals the path without the leading slash -->
@@ -17,15 +17,21 @@
 	<mvc:view-controller path="/service" view-name="service" />
 	<mvc:view-controller path="/about" view-name="about" />
 	<mvc:view-controller path="/privacy" view-name="privacy" />
-	<mvc:view-controller path="/tos" view-name="terms" />
+	<mvc:view-controller path="/terms" view-name="terms" />
 	<mvc:view-controller path="/help" view-name="help" />
 	<mvc:view-controller path="/contact" view-name="contact" />
 	<mvc:view-controller path="/jobs" view-name="jobs" />
-	
+
+
 	<!-- i18n Configuration -->
-	<bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
-	    <property name="paramName" value="lang"/>
-	</bean>
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/*" />
+			<bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+			    <property name="paramName" value="lang"/>
+			</bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
 	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
 	    <property name="defaultLocale" value="en_EN"/>
 	    <property name="cookieName" value="locale"/>
@@ -44,7 +50,7 @@
 	<!-- Thymeleaf template resolver -->
 	<bean id="templateResolver" class="org.thymeleaf.templateresolver.ServletContextTemplateResolver">
 		<property name="prefix" value="/WEB-INF/"/>
-		<property name="suffix" value=".html" />
+<!-- 		<property name="suffix" value=".html" /> -->
 		<property name="templateMode" value="HTML5"/>
 		<property name="cacheable" value="true"/>
 	</bean>
@@ -60,10 +66,10 @@
             </set>
         </property>
     </bean>
-	
+
 	<!-- Resolves logical view names returned by Controllers to Tiles; a view name to resolve is treated as the name of a tiles definition -->
-	<bean id="viewResolver" class="org.thymeleaf.spring3.view.ThymeleafViewResolver">
-		<property name="viewClass" value="org.thymeleaf.extras.tiles2.spring.web.view.ThymeleafTilesView"/>
+	<bean id="tilesViewResolver" class="org.thymeleaf.spring3.view.AjaxThymeleafViewResolver">
+		<property name="viewClass" value="org.thymeleaf.extras.tiles2.spring.web.view.FlowAjaxThymeleafTilesView"/>
 		<property name="templateEngine" ref="templateEngine"/>
 	</bean>
   

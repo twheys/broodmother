@@ -10,7 +10,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.heys.dating.domain.user.Customer;
+import com.heys.dating.domain.user.Member;
 
 public class DatingUserDetails extends User implements UserDetails {
 
@@ -31,7 +31,7 @@ public class DatingUserDetails extends User implements UserDetails {
 
 	private final String salt;
 
-	public DatingUserDetails(final Customer customer) {
+	public DatingUserDetails(final Member customer) {
 		super(customer.getLogin(), customer.getPassword(),
 				customer.isEnabled(), true, !customer.hasExpiredCredentials(),
 				!customer.isLocked(), getAuthorities(customer.getPrivileges()));

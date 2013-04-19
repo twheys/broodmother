@@ -1,0 +1,43 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring3-3.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:tiles="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org">
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<title tiles:string="title">Dating Title</title>
+
+<link rel="stylesheet" type="text/css" media="all" href="/resources/css/style.css" />
+
+<link rel="stylesheet" type="text/css" media="all" href="/resources/css/960/reset.css" />
+<link rel="stylesheet" type="text/css" media="all" href="/resources/css/960/text.css" />
+<link rel="stylesheet" type="text/css" media="all" href="/resources/css/960/960.css" />
+
+</head>
+
+<body class="container_16">
+
+	<header class="grid_3 suffix_6" tiles:include="header.logo"></header>
+	
+	<header class="grid_4" tiles:include="header.login"></header>
+	
+	<header class="grid_3" tiles:include="header.language"></header>
+	
+<div class="clear"></div>
+
+	<section tiles:include="story1"></section>
+	
+<div class="clear"></div>
+
+	<section tiles:include="story2"></section>
+	
+<div class="clear"></div>
+
+	<footer class="prefix_4 grid_8 suffix_4" tiles:include="footer"></footer>
+
+</body>
+
+</html>

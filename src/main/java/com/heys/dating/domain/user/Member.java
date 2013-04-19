@@ -13,7 +13,9 @@ import javax.persistence.TemporalType;
 import com.heys.dating.domain.AbstractEntity;
 
 @Entity
-public class Customer extends AbstractEntity {
+public class Member extends AbstractEntity {
+	private static final long serialVersionUID = 8438508214003815930L;
+
 	@Temporal(TemporalType.DATE)
 	private Date birthdate;
 	private String email;
@@ -27,7 +29,17 @@ public class Customer extends AbstractEntity {
 	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	private Profile profile;
 
-	public Customer(final String login, final String email, final Date birthdate) {
+	public Member() {
+		profile = new Profile();
+
+		isEnabled = true;
+		isLocked = false;
+		hasExpiredCredentials = false;
+		privileges = new HashSet<String>();
+		privileges.add("ROLE_USER");
+	}
+
+	public Member(final String login, final String email, final Date birthdate) {
 		super();
 		this.login = login;
 		this.email = email;

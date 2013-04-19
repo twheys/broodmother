@@ -19,7 +19,7 @@
         
         <class>com.heys.dating.domain.AbstractEntity</class>
         
-        <class>com.heys.dating.domain.user.Customer</class>
+        <class>com.heys.dating.domain.user.Member</class>
         <class>com.heys.dating.domain.user.Profile</class>
         <class>com.heys.dating.domain.user.Picture</class>
     </persistence-unit>

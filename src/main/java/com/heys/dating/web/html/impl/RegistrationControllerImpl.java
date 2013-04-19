@@ -1,39 +1,33 @@
 package com.heys.dating.web.html.impl;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Logger;
 
+import javax.servlet.http.HttpSession;
+
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.heys.dating.domain.repository.CustomerRepository;
-import com.heys.dating.domain.user.Customer;
-import com.heys.dating.service.CustomerManager;
+import com.heys.dating.domain.repository.MemberRepository;
+import com.heys.dating.domain.user.Member;
+import com.heys.dating.service.MemberService;
 import com.heys.dating.web.html.RegistrationController;
 import com.heys.dating.web.html.dto.Registration;
 
 @Controller("RegistrationController")
 public class RegistrationControllerImpl implements RegistrationController {
 	private static final Logger logger = Logger
-			.getLogger(RegistrationControllerImpl.class.getName());
-
-	private static final DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+			.getLogger(RegistrationController.class.getName());
 
 	@Autowired
-	private CustomerManager customerManager;
+	private MemberService memberService;
 
 	@Autowired
-	private CustomerRepository customerRepository;
+	private MemberRepository customerRepository;
 
 	public RegistrationControllerImpl() {
 		logger.info("Starting Registration Controller");
@@ -45,29 +39,13 @@ public class RegistrationControllerImpl implements RegistrationController {
 
 	private ModelAndView createRegistrationForm(
 			final Registration registration, final List<ObjectError> errors) {
-		final Map<String, Object> data = new HashMap<String, Object>();
-
-		if (null == registration) {
-			data.put("command", new Registration());
-		} else {
-			data.put("command", registration);
-		}
 
 		if (null != errors) {
 
 		}
-		return new ModelAndView("register", data);
-	}
-
-	private Date formatDate(final String birthdateDD, final String birthdateMM,
-			final String birthdateYYYY) {
-		try {
-			return df.parse(new StringBuffer(birthdateDD).append('-')
-					.append(birthdateMM).append('-').append(birthdateYYYY)
-					.toString());
-		} catch (final ParseException e) {
-			return null;
-		}
+		final Registration bean = null == registration ? new Registration()
+				: registration;
+		return new ModelAndView("register", "command", bean);
 	}
 
 	@Override
@@ -76,34 +54,34 @@ public class RegistrationControllerImpl implements RegistrationController {
 	}
 
 	@Override
-	public ModelAndView getRegistrationSuccessPage(
-			@PathVariable final String login) {
-		final Customer customer = customerRepository
-				.findByLoginIgnoreCase(login);
-		if (null == customer) {
-			logger.warning("Customer reached login success page for a non existing login: "
-					+ login);
+	public ModelAndView getRegistrationSuccessPage(final HttpSession session) {
+		final Object member = session.getAttribute("member");
+		session.removeAttribute("member");
+
+		if (null == member) {
+			logger.warning("Customer reached login success page for a non existing login");
 			return new ModelAndView("redirect:/register");
 		}
 
-		final Map<String, Object> data = new HashMap<String, Object>();
-		data.put("customer", customer);
-		return new ModelAndView("register-success", data);
+		return new ModelAndView("registerConfirmation", "member", member);
 	}
 
 	@Override
 	public ModelAndView submitRegistration(final Registration data,
-			final BindingResult result) {
+			final BindingResult result, final HttpSession session) {
+		logger.fine("Registration " + data.toString());
 		if (result.hasErrors()) {
 			logger.finest("Registration errors" + result.getAllErrors());
 			return createRegistrationForm(data, result.getAllErrors());
 		}
 
-		final Date birthdate = formatDate(data.getBirthdateDD(),
-				data.getBirthdateMM(), data.getBirthdateYYYY());
-		final Customer customer = customerManager.register(data.getLogin(),
+		final DateTime birthdate = new DateTime(data.getBirthyear(),
+				data.getBirthmonth(), data.getBirthday(), 0, 0, 0, 0);
+		final Member member = memberService.register(data.getLogin(),
 				data.getPassword(), data.getEmail(), birthdate);
-		return new ModelAndView("redirect:/register/" + customer.getLogin());
+
+		session.setAttribute("member", member);
+		return new ModelAndView("redirect:/register/success");
 	}
 
 }

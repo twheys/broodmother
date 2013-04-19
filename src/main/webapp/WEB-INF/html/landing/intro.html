@@ -2,7 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" 
       xmlns:th="http://www.thymeleaf.org"
       xmlns:tiles="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org">
+      xmlns:sec="http://www.thymeleaf.org"
+      lang="en">
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -10,12 +11,13 @@
 
 <body tiles:fragment="content">
 	
-	<div>
-		<img alt="dating" src="#" th:src="@{/resources/logo/header.png}"/>
+	<div class="grid_9">
+		<h3 th:text="#{landing.page.title}">Dating Home</h3>
+		<p th:text="#{landing.page.content1}">Lorem ipsum....</p>
 	</div>
 	
-	<div tiles:include="lang-select"></div>
-
+	<div class="grid_7" tiles:include="registration"></div>
+	
 </body>
 
 </html>

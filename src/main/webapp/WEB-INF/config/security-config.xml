@@ -5,7 +5,7 @@
 	xsi:schemaLocation="
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
 	 	http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd">
-	<http pattern="/static/**" security="none" />
+	<http pattern="/resources/**" security="none" />
 
 	<http use-expressions="true">
 		<intercept-url pattern="/" access="permitAll" />
@@ -23,13 +23,12 @@
 		
 		<intercept-url pattern="/_ah/**" access="permitAll"/>
 		
-		<intercept-url pattern="/**" access="denyAll" />
 		<form-login username-parameter="username" password-parameter="password" always-use-default-target="false"
 			login-page="/login" 
-			login-processing-url="/login/check"
+			login-processing-url="/gateway"
 			default-target-url="/dashboard"
 			authentication-failure-url="/login?error=1" />
-		<remember-me key="1234567890" />
+		<remember-me key="1234567890"  />
 		<logout logout-success-url="/logout" />
 	</http>
 

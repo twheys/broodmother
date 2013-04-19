@@ -4,8 +4,6 @@ import java.util.logging.Logger;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.heys.dating.web.html.LoginController;
@@ -16,14 +14,17 @@ public class LoginControllerImpl implements LoginController {
 			.getLogger(LoginControllerImpl.class.getName());
 
 	@Override
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public ModelAndView login(final ModelMap model) {
-		logger.info("Login stuff: " + model.toString());
+	public ModelAndView login(final String error, final String userName,
+			final ModelMap model) {
+		if ("1".equals(error)) {
+			logger.info("Failed to login. Redirecting to login page with error message.");
+			model.addAttribute("error", "true");
+			model.addAttribute("username", userName);
+		}
 		return new ModelAndView("login", model);
 	}
 
 	@Override
-	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public ModelAndView logout(final ModelMap model) {
 		return new ModelAndView("logout", model);
 	}
