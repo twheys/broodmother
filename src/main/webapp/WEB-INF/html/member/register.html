@@ -12,7 +12,7 @@
 
 <body tiles:fragment="content">
 
-<h2 th:text="#{register.page.title}">Registration</h2>
+<h3 th:text="#{register.page.title}">Registration</h3>
 <form method="post" action="#" th:action="@{/register}" th:object="${command}" class="register-form">
 
 	<div>
@@ -132,7 +132,7 @@
 	</div>
 	
 	<div>
-		<input id="submit" type="submit" name="submit" value="Submit"
+		<input id="register" type="submit" name="submit" value="Submit"
 			th:value="#{register.form.label.submit}" />
 	</div>
 </form>

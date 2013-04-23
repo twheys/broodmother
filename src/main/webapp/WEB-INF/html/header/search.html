@@ -1,0 +1,22 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring3-3.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:tiles="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org" lang="en">
+
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+
+
+<body tiles:fragment="content">
+<form method="get" action="#" th:action="@{/search}" class="search-form">
+		<input id="search" type="submit" name="submit"/>
+		<input id="criteria" type="search" name="criteria"/>
+		<a id="browse" class="button" th:href="@{/search}" th:text="#{search.button.search}">advanced search</a>
+		<a id="browse" class="button" th:href="@{/browse}" th:text="#{search.button.browse}">browse members</a>
+</form>
+</body>
+
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring3-3.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:tiles="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org" lang="en">
+
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+
+
+<body tiles:fragment="content">
+
+<p th:if="${error}" th:text="#{login.message.error}">Wrong user name or password!</p>
+
+<form method="post" th:action="@{/gateway}" action="/login/check" >
+
+	<div class="login-small">
+		<input id="username" name="username" type="text" th:placeholder="#{login.label.username}" placeholder="User Name or Email" />
+		<input name="password" type="password" th:placeholder="#{login.label.password}" placeholder="Password"/>
+	</div>
+
+	<div class="login-small">
+		<a href="#" th:href="@{#}" th:text="#{login.link.fpassword}">Forgot Password?</a>
+		
+		<input id="login" type="submit" name="Login" th:value="#{login.button.login}" value="Login" />
+	</div>
+
+</form>
+	
+</body>
+
+</html>

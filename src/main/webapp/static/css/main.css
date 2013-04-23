@@ -1,4 +1,98 @@
 body {
     font-family: Verdana, Helvetica, sans-serif;
-    background-color: #FFFFCC;
+}
+
+.row_1 {
+	height: 45px;
+	background-color: #FAFAFA;
+}
+
+.row_2 {
+	height: 135px;
+	background-color: white;
+}
+
+.row_3 {
+	height: 275px;
+	background-color: #FAFAFA;
+}
+
+.row_4 {
+	height: 225px;
+	background-color: white;
+}
+
+.row_5 {
+	height: 350px;
+	background-color: #FAFAFA;
+}
+
+#landing_register_popup {
+	display: none;
+}
+
+.login-small {
+	font-size: 12px;
+}
+
+.login-small input[type=text],
+.login-small input[type=password] {
+	height: 12px;
+	width: 132px;
+}
+.login-small input[type=submit] {
+	height: 23px;
+	width: 55px;
+	float: right;
+}
+
+.search-form {
+	height: 35px;
+	padding: 50px 0;
+}
+
+.seo-img {
+	height: 100px;
+	width: 100%;
+}
+
+.dropdown {
+	position: relative;
+	display: none;
+}
+
+#search {
+	height: 32px;
+	width: 32px;
+}
+
+#criteria {
+	height: 24px;
+	width: 400px;
+}
+
+#browse {
+	height: 18px;
+	width: 75px;
+}
+
+.heading {
+	height: 100%;
+	padding-top: 15px; 
+}
+
+.landing_main_text a {
+	text-align: center;
+}
+
+.features_text h4 {
+	text-align: center;
+}
+
+.features_text p {
+	text-align: justify;
+}
+
+#footer-nav {
+	text-align: center;
 }

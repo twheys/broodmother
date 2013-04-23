@@ -5,7 +5,7 @@
  
 <tiles-definitions>
 
-	<definition name="dashboard" extends="standardLayout">
+	<definition name="dashboard" extends="internalLayout">
 		<put-attribute name="page" value="html/dashboard.html :: content" type="thymeleaf"/>
 	</definition> 
 

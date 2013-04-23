@@ -11,23 +11,34 @@
     
 </head>
 
+<body class="container_16">
+	
+	<header class="prefix_8 grid_6" tiles:include="header.login"></header>
+	
+	<header class="grid_2" tiles:include="header.language"></header>
 
-<body>
+<div class="clear"></div>
 
-<div id="page" class="container">
+	<header class="grid_4 suffix_2" tiles:include="header.logo"></header>
 
-<!-- 	<header tiles:include="user_widget"> -->
+	<header class="grid_10" tiles:include="header.search"></header>
 	
-<!-- 	</header> -->
+<div class="clear"></div>
+
+	<section tiles:include="story1"></section>
 	
-	<div tiles:include="page">
-		
-	</div>
+<div class="clear"></div>
+
+	<section tiles:include="story2" class="container_12"></section>
 	
-<!-- 	<footer tiles:include="footer"> -->
+<!-- <div class="clear"></div> -->
+
+<!-- 	<section tiles:include="story3"></section> -->
 	
-<!-- 	</footer> -->
-    
-</div>
+<div class="clear"></div>
+
+	<footer class="grid_16" tiles:include="footer"></footer>
+
 </body>
+
 </html>
