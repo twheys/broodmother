@@ -1,38 +1,35 @@
-body {
-    font-family: Verdana, Helvetica, sans-serif;
-}
-
 .row_1 {
 	height: 50px;
-	background-color: #FAFAFA;
 }
 
 .row_2 {
 	height: 85px;
-	background-color: white;
 }
 
 .row_3 {
 	height: 275px;
-	background-color: #FAFAFA;
 }
 
 .row_4 {
 	height: 225px;
-	background-color: white;
 }
 
 .row_5 {
-	height: 350px;
-	background-color: #FAFAFA;
+	min-height: 350px;
+	height: auto;
 }
+
+.content {
+	min-height: 200px;
+	padding-top: 65px;
+	padding-bottom: 115px;
+}
+
+
+
 
 #landing_register_popup {
 	display: none;
-}
-
-.login-small {
-	font-size: 12px;
 }
 
 .login-small input[type=text],
@@ -44,6 +41,23 @@ body {
 	height: 23px;
 	width: 55px;
 	float: right;
+}
+.login-large {
+	margin-bottom: 10px;
+}
+.login-large input[type=text],
+.login-large input[type=password] {
+	height: 30px;
+	width: 300px;
+	float: right;
+}
+.login-large input[type=submit] {
+	height: 36px;
+	width: 100px;
+	float: right;
+}
+.login-links {
+	margin-top: 25px;
 }
 
 .search-form {

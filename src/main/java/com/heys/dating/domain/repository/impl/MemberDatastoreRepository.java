@@ -24,6 +24,13 @@ public class MemberDatastoreRepository extends AbstractRepository<Member>
 	}
 
 	@Override
+	public Member findByLogin(final String login) {
+		return getSingleResult(entityManager.createQuery(
+				"select c from Member c where c.login = :login", type)
+				.setParameter("login", login));
+	}
+
+	@Override
 	public Member findByLoginIgnoreCase(final String login) {
 		return getSingleResult(entityManager.createQuery(
 				"select c from Member c where c.login = :login", type)
@@ -37,13 +44,11 @@ public class MemberDatastoreRepository extends AbstractRepository<Member>
 	@Override
 	public Member findByLoginOrEmailIgnoreCase(final String identifier) {
 		Member customer;
-		if (null != (customer = findByLoginIgnoreCase(identifier))) {
+		if (null != (customer = findByLoginIgnoreCase(identifier)))
 			return customer;
-		}
 
-		if (null != (customer = findByEmailIgnoreCase(identifier))) {
+		if (null != (customer = findByEmailIgnoreCase(identifier)))
 			return customer;
-		}
 
 		return null;
 	}

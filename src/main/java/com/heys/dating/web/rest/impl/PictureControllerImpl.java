@@ -3,6 +3,7 @@ package com.heys.dating.web.rest.impl;
 import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.heys.dating.domain.user.Picture;
 import com.heys.dating.service.PictureManager;
@@ -29,9 +30,8 @@ public class PictureControllerImpl implements PictureController {
 	private Picture doGetPicture(final Principal auth, final String pictureKey)
 			throws ResourceNotFoundException {
 		final Picture picture = pictureManager.getPicture(pictureKey, auth);
-		if (null == picture) {
+		if (null == picture)
 			throw new ResourceNotFoundException();
-		}
 		return picture;
 	}
 
@@ -56,18 +56,14 @@ public class PictureControllerImpl implements PictureController {
 	}
 
 	@Override
-	public byte[] viewFullJpg(final Principal auth, final String pictureKey) {
-		return doGetPicture(auth, pictureKey).getFull().getBytes();
-	}
-
-	@Override
 	public byte[] viewFullPng(final Principal auth, final String pictureKey) {
 		return doGetPicture(auth, pictureKey).getFull().getBytes();
 	}
 
 	@Override
-	public byte[] viewPreviewJpg(final Principal auth, final String pictureKey) {
-		return doGetPicture(auth, pictureKey).getPreview().getBytes();
+	public byte[] viewIconPng(final Principal auth,
+			@PathVariable final String pictureKey) {
+		return doGetPicture(auth, pictureKey).getIcon().getBytes();
 	}
 
 	@Override

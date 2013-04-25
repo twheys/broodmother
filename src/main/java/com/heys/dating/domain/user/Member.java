@@ -25,6 +25,7 @@ public class Member extends AbstractEntity {
 	private String login;
 	private String password;
 	private Set<String> privileges;
+	private Gender gender;
 
 	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	private Profile profile;
@@ -60,6 +61,10 @@ public class Member extends AbstractEntity {
 
 	public String getEmail() {
 		return email;
+	}
+
+	public Gender getGender() {
+		return gender;
 	}
 
 	public String getLogin() {
@@ -106,6 +111,10 @@ public class Member extends AbstractEntity {
 		this.isEnabled = isEnabled;
 	}
 
+	public void setGender(final Gender gender) {
+		this.gender = gender;
+	}
+
 	public void setHasExpiredCredentials(final boolean hasExpiredCredentials) {
 		this.hasExpiredCredentials = hasExpiredCredentials;
 	}
@@ -132,10 +141,11 @@ public class Member extends AbstractEntity {
 
 	@Override
 	public String toString() {
-		return "Customer [birthdate=" + birthdate + ", email=" + email
+		return "Member [birthdate=" + birthdate + ", email=" + email
 				+ ", hasExpiredCredentials=" + hasExpiredCredentials
 				+ ", isEnabled=" + isEnabled + ", isLocked=" + isLocked
 				+ ", login=" + login + ", password=" + password
-				+ ", privileges=" + privileges + ", profile=" + profile + "]";
+				+ ", privileges=" + privileges + ", gender=" + gender
+				+ ", profile=" + profile + "]";
 	}
 }

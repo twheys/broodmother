@@ -10,6 +10,8 @@ import com.heys.dating.domain.user.Member;
 public interface MemberRepository extends JpaRepository<Member, Key> {
 	Member findByEmailIgnoreCase(String email);
 
+	Member findByLogin(String name);
+
 	Member findByLoginIgnoreCase(String login);
 
 	Member findByLoginOrEmailIgnoreCase(String value);

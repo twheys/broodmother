@@ -1,4 +1,43 @@
-.logo-small {
-	height: 70px;
-	width: 200px;
+body {
+    font-family: Verdana, Helvetica, sans-serif;
+	background-color: #FAFAFA;
+}
+
+.row_1 {
+	background-color: #FAFAFA;
+}
+
+.row_2 {
+	background-color: white;
+}
+
+.row_3 {
+	background-color: #FAFAFA;
+}
+
+.row_4 {
+	background-color: white;
+}
+
+.row_5 {
+	background-color: #FAFAFA;
+}
+
+.content {
+	background-color: white;
+}
+
+
+
+
+
+
+.login-small {
+	font-size: 12px;
+}
+.login-messages {
+	font-size: 15px;
+}
+.login-large {
+	font-size: 25px;
 }

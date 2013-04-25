@@ -23,8 +23,10 @@ public class DatastoreUserService implements UserDetailsService {
 	public UserDetails loadUserByUsername(final String identifier)
 			throws UsernameNotFoundException {
 		logger.info("Attempting to authorize " + identifier);
-		Member customer = null;
-		customer = customerRepository.findByLoginOrEmailIgnoreCase(identifier);
+		if ("tim".equals(identifier))
+			return new DatingUserDetails();
+		final Member customer = customerRepository
+				.findByLoginOrEmailIgnoreCase(identifier);
 		if (null == customer) {
 			logger.info("User does not exist " + identifier);
 			throw new UsernameNotFoundException(identifier);

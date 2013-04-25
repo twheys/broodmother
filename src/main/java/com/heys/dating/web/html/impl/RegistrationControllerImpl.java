@@ -12,7 +12,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.heys.dating.domain.repository.MemberRepository;
 import com.heys.dating.domain.user.Member;
 import com.heys.dating.service.MemberService;
 import com.heys.dating.web.html.RegistrationController;
@@ -25,9 +24,6 @@ public class RegistrationControllerImpl implements RegistrationController {
 
 	@Autowired
 	private MemberService memberService;
-
-	@Autowired
-	private MemberRepository customerRepository;
 
 	public RegistrationControllerImpl() {
 		logger.info("Starting Registration Controller");
@@ -63,7 +59,7 @@ public class RegistrationControllerImpl implements RegistrationController {
 			return new ModelAndView("redirect:/register");
 		}
 
-		return new ModelAndView("registerConfirmation", "member", member);
+		return new ModelAndView("confirmation", "member", member);
 	}
 
 	@Override
@@ -81,7 +77,7 @@ public class RegistrationControllerImpl implements RegistrationController {
 				data.getPassword(), data.getEmail(), birthdate);
 
 		session.setAttribute("member", member);
-		return new ModelAndView("redirect:/register/success");
+		return new ModelAndView("redirect:/register/confirm");
 	}
 
 }

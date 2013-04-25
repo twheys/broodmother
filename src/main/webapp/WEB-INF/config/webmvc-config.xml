@@ -9,7 +9,7 @@
 	<!-- Enables controllers mapped with @RequestMapping annotations, formatting annotations @NumberFormat @DateTimeFormat, and JSR 303 style validation -->
 	<mvc:annotation-driven/>
 
-	<mvc:resources mapping="/resources/**" location="/static/" />
+	<mvc:resources mapping="/r/**" location="/static/" cache-period="0"/>
 	<mvc:default-servlet-handler />
 
 	<!-- Map paths directly to view names without controller processing. Use the view-name attribute if necessary: by convention the view name equals the path without the leading slash -->

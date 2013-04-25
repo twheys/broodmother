@@ -1,7 +1,5 @@
 package com.heys.dating.web.html.impl;
 
-import java.util.logging.Logger;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
@@ -13,8 +11,8 @@ import com.heys.dating.web.html.dto.Registration;
 
 @Controller
 public class LandingControllerImpl implements LandingController {
-	private static final Logger logger = Logger
-			.getLogger(LandingController.class.getName());
+	// private static final Logger logger = Logger
+	// .getLogger(LandingController.class.getName());
 
 	@Override
 	public ModelAndView getDefaultLandingPage(final HttpServletRequest request) {

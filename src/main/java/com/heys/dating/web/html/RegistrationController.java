@@ -16,7 +16,7 @@ public interface RegistrationController {
 	@RequestMapping(method = RequestMethod.GET)
 	ModelAndView getRegistrationPage();
 
-	@RequestMapping(value = "/success", method = RequestMethod.GET)
+	@RequestMapping(value = "/confirm", method = RequestMethod.GET)
 	ModelAndView getRegistrationSuccessPage(HttpSession session);
 
 	@RequestMapping(method = RequestMethod.POST)

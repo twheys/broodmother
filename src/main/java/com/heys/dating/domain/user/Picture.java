@@ -8,12 +8,16 @@ import com.heys.dating.domain.AbstractEntity;
 
 @Entity
 public class Picture extends AbstractEntity {
+	private static final long serialVersionUID = 8418671229417665202L;
 
 	@Basic
 	private ShortBlob full;
 
 	@Basic
 	private ShortBlob preview;
+
+	@Basic
+	private ShortBlob icon;
 
 	private String description;
 	private PictureType type;
@@ -30,6 +34,10 @@ public class Picture extends AbstractEntity {
 
 	public ShortBlob getFull() {
 		return full;
+	}
+
+	public ShortBlob getIcon() {
+		return icon;
 	}
 
 	public ShortBlob getPreview() {
@@ -56,6 +64,10 @@ public class Picture extends AbstractEntity {
 		this.full = full;
 	}
 
+	public void setIcon(final ShortBlob icon) {
+		this.icon = icon;
+	}
+
 	public void setPreview(final ShortBlob preview) {
 		this.preview = preview;
 	}
@@ -67,4 +79,5 @@ public class Picture extends AbstractEntity {
 	public void setType(final PictureType type) {
 		this.type = type;
 	}
+
 }

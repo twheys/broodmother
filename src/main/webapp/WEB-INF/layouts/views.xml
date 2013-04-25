@@ -4,11 +4,18 @@
        "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
 
 <tiles-definitions>
-	
-    <definition name="standardLayout" template="/layouts/standard.html" templateType="thymeleaf"/>
     
     <definition name="landingLayout" template="/layouts/landing.html" templateType="thymeleaf"/>
 	
-    <definition name="internalLayout" template="/layouts/internal.html" templateType="thymeleaf"/>
+    <definition name="simpleLayout" template="/layouts/simple.html" templateType="thymeleaf">
+		<put-attribute name="header.logo" value="/html/header/logo-small.html :: content" type="thymeleaf"/>
+		<put-attribute name="footer" value="/html/footer/internal.html :: content" type="thymeleaf"/>
+    </definition>
+	
+    <definition name="standardLayout" template="/layouts/standard.html" templateType="thymeleaf">
+		<put-attribute name="header.logo" value="/html/header/logo-small.html :: content" type="thymeleaf"/>
+		<put-attribute name="header.user" value="/html/header/account.html :: content" type="thymeleaf"/>
+		<put-attribute name="footer" value="/html/footer/internal.html :: content" type="thymeleaf"/>
+    </definition>
     	
 </tiles-definitions>

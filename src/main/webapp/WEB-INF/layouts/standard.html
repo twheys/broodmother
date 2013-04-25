@@ -1,43 +1,55 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" 
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:tiles="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org"
-      lang="en">
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring3-3.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:tiles="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org">
 
 <head>
 
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<title tiles:string="title">Dating Title</title>
+
+<link rel="stylesheet" type="text/css" media="all" th:href="@{/r/css/main.css}" />
+<link rel="stylesheet" type="text/css" media="all" th:href="@{/r/css/dating.css}" />
+
+<link rel="stylesheet" type="text/css" media="all" th:href="@{/r/css/960/reset.css}" />
+<link rel="stylesheet" type="text/css" media="all" th:href="@{/r/css/960/text.css}" />
+<link rel="stylesheet" type="text/css" media="all" th:href="@{/r/css/960/960.css}" />
+
 </head>
 
-<body class="container_16">
-	
-	<header class="prefix_8 grid_6" tiles:include="header.login"></header>
-	
-	<header class="grid_2" tiles:include="header.language"></header>
+<body>
 
+<div class="row_1">
+
+	<div class="container_16">
+		<header tiles:include="header.logo" class="grid_3"></header>
+		
+		<header tiles:include="header.user" class="prefix_8 grid_5"></header>
+	</div>
+	
+</div>
+		
 <div class="clear"></div>
-
-	<header class="grid_4 suffix_2" tiles:include="header.logo"></header>
-
-	<header class="grid_10" tiles:include="header.search"></header>
 	
+<div class="content">
+
+	<div class="container_16">
+		<section tiles:include="content"></section>
+	</div>
+	
+</div>
+		
 <div class="clear"></div>
-
-	<section tiles:include="story1"></section>
 	
-<div class="clear"></div>
+<div class="row_5">
 
-	<section tiles:include="story2" class="container_12"></section>
+	<div class="container_16">
+		<footer tiles:include="footer" class="grid_16"></footer>
+	</div>
 	
-<!-- <div class="clear"></div> -->
-
-<!-- 	<section tiles:include="story3"></section> -->
-	
-<div class="clear"></div>
-
-	<footer class="grid_16" tiles:include="footer"></footer>
+</div>
 
 </body>
 
