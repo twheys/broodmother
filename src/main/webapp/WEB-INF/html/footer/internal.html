@@ -1,0 +1,29 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring3-3.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:tiles="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org" lang="en">
+
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+
+
+<body tiles:fragment="content">
+
+	<nav id="footer-nav">
+		<a href="#" th:href="@{/help}" th:text="#{footer.link.help}">Help</a>
+		|
+		<a href="#" th:href="@{/privacy}" th:text="#{footer.link.privacy}">Privacy Policy</a>
+		|
+		<a href="#" th:href="@{/terms}" th:text="#{footer.link.tos}">Terms</a>
+		|
+		<a href="#" th:href="@{/contact}" th:text="#{footer.link.contact}">Contact Us</a>
+		|
+		<a href="#" th:href="@{/jobs}" th:text="#{footer.link.jobs}">Jobs</a>
+	</nav>
+
+</body>
+
+</html>
