@@ -1,0 +1,43 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring3-3.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:tiles="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org" lang="en">
+
+
+<head>
+
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	
+	<link rel="stylesheet" type="text/css" media="all" th:href="@{/r/css/main.css}" href="../../../static/css/main.css"/>
+	<link rel="stylesheet" type="text/css" media="all" th:href="@{/r/css/dating.css}"  href="../../../static/css/dating.css"/>
+	
+	<link rel="stylesheet" type="text/css" media="all" th:href="@{/r/css/960/reset.css}"  href="../../../static/css/960/reset.css"/>
+	<link rel="stylesheet" type="text/css" media="all" th:href="@{/r/css/960/text.css}"  href="../../../static/css/960/text.css"/>
+	<link rel="stylesheet" type="text/css" media="all" th:href="@{/r/css/960/960.css}"  href="../../../static/css/960/960.css"/>
+
+<style type="text/css"> 
+#test {
+	width: 700px;
+}
+</style>
+</head>
+
+
+<body>
+<div  tiles:fragment="content" id="test">
+
+	<div id="search_bar">
+		<form method="get" action="#" th:action="@{/search}" class="search-form">
+			<input id="search" type="submit" name="submit"/>
+			<input id="criteria" type="search" name="criteria"/>
+		</form>
+		<button id="browse" class="button" th:href="@{/browse}" th:text="#{search.button.browse}">browse</button>
+	</div>
+	
+	<a id="adv_search" class="button" href="#" th:text="#{search.button.search}">advanced search</a>
+	
+</div>
+</body>
+
+</html>
