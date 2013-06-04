@@ -10,10 +10,10 @@
 	<artifactId>dating</artifactId>
 
 	<properties>
-		<appengine.version>1.7.5</appengine.version>
+		<appengine.version>1.7.6</appengine.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-		<slf4j.version>1.7.2</slf4j.version>
+		<slf4j.version>1.5.8</slf4j.version>
 		<datanucleus.version>3.0.1</datanucleus.version>
 		<spring.version>3.2.1.RELEASE</spring.version>
 		<spring.webflow.version>2.4.0.M1</spring.webflow.version>
@@ -39,16 +39,6 @@
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
-		<dependency>
-			<groupId>com.google.guava</groupId>
-			<artifactId>guava</artifactId>
-			<version>13.0.1</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-fileupload</groupId>
-			<artifactId>commons-fileupload</artifactId>
-			<version>1.2.1</version>
-		</dependency>
 
 		<!-- Spring -->
 		<dependency>
@@ -68,11 +58,11 @@
 		</dependency>
 
 		<!-- Spring Webflow -->
-		<dependency>
-			<groupId>org.springframework.webflow</groupId>
-			<artifactId>spring-webflow</artifactId>
-			<version>${spring.webflow.version}</version>
-		</dependency>
+		<!-- <dependency> -->
+		<!-- <groupId>org.springframework.webflow</groupId> -->
+		<!-- <artifactId>spring-webflow</artifactId> -->
+		<!-- <version>${spring.webflow.version}</version> -->
+		<!-- </dependency> -->
 		<dependency>
 			<groupId>org.springframework.webflow</groupId>
 			<artifactId>spring-js</artifactId>
@@ -101,13 +91,6 @@
 			<version>${spring.security.version}</version>
 		</dependency>
 
-		<!-- Spring Data -->
-		<dependency>
-			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-jpa</artifactId>
-			<version>${spring-data.version}</version>
-		</dependency>
-
 		<!-- Thymeleaf -->
 		<dependency>
 			<groupId>org.thymeleaf</groupId>
@@ -129,50 +112,24 @@
 			<artifactId>thymeleaf-extras-springsecurity3</artifactId>
 			<version>2.0.0</version>
 		</dependency>
-            
+
 		<!-- Logging dependencies -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-jdk14</artifactId>
 			<version>${slf4j.version}</version>
 		</dependency>
 
-		<!-- JPA 2.0 for GAE -->
+		<!-- ORM -->
 		<dependency>
-			<groupId>com.google.appengine.orm</groupId>
-			<artifactId>datanucleus-appengine</artifactId>
-			<version>2.0.0</version>
-		</dependency>
-		<dependency>
-			<groupId>org.datanucleus</groupId>
-			<artifactId>datanucleus-api-jdo</artifactId>
-			<version>${datanucleus.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.datanucleus</groupId>
-			<artifactId>datanucleus-enhancer</artifactId>
-			<version>${datanucleus.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.datanucleus</groupId>
-			<artifactId>datanucleus-api-jpa</artifactId>
-			<version>${datanucleus.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.datanucleus</groupId>
-			<artifactId>datanucleus-core</artifactId>
-			<version>${datanucleus.version}</version>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.geronimo.specs</groupId>
-			<artifactId>geronimo-jpa_2.0_spec</artifactId>
-			<version>1.0</version>
-		</dependency>
-		<dependency>
-			<groupId>javax.jdo</groupId>
-			<artifactId>jdo-api</artifactId>
-			<version>3.0</version>
+			<groupId>com.googlecode.objectify</groupId>
+			<artifactId>objectify</artifactId>
+			<version>4.0b3</version>
 		</dependency>
 
 		<!-- JSR 303 with Hibernate Validator -->
@@ -181,8 +138,8 @@
 			<artifactId>hibernate-validator</artifactId>
 			<version>4.1.0.Beta1</version>
 		</dependency>
-        
-		<!--  Joda Time -->
+
+		<!-- Joda Time -->
 		<dependency>
 			<groupId>joda-time</groupId>
 			<artifactId>joda-time</artifactId>
@@ -193,7 +150,25 @@
 			<artifactId>joda-time-jsptags</artifactId>
 			<version>1.0.2</version>
 			<scope>runtime</scope>
-		</dependency>		
+		</dependency>
+
+
+		<!-- Commons -->
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>14.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.2.1</version>
+		</dependency>
+		<dependency>
+	        <groupId>commons-codec</groupId>
+	        <artifactId>commons-codec</artifactId>
+	        <version>1.2</version>
+		</dependency>
 
 		<!-- Test Dependencies -->
 		<dependency>
@@ -219,6 +194,11 @@
 			<artifactId>appengine-api-stubs</artifactId>
 			<version>${appengine.version}</version>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>2.6</version>
 		</dependency>
 	</dependencies>
 
@@ -261,19 +241,17 @@
 				<groupId>org.datanucleus</groupId>
 				<artifactId>datanucleus-maven-plugin</artifactId>
 				<version>3.2.0-m3</version>
-				<configuration>
-					<api>JPA</api>
-					<persistenceUnitName>transactions-optional</persistenceUnitName>
-					<verbose>true</verbose>
-				</configuration>
-				<executions>
-					<execution>
-						<phase>process-classes</phase>
-						<goals>
-							<goal>enhance</goal>
-						</goals>
-					</execution>
-				</executions>
+<!-- 				<configuration> -->
+<!-- 					<verbose>true</verbose> -->
+<!-- 				</configuration> -->
+<!-- 				<executions> -->
+<!-- 					<execution> -->
+<!-- 						<phase>process-classes</phase> -->
+<!-- 						<goals> -->
+<!-- 							<goal>enhance</goal> -->
+<!-- 						</goals> -->
+<!-- 					</execution> -->
+<!-- 				</executions> -->
 			</plugin>
 		</plugins>
 	</build>

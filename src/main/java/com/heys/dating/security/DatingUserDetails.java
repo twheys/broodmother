@@ -5,45 +5,65 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.thymeleaf.util.SetUtils;
 
-import com.heys.dating.domain.user.Member;
+import com.googlecode.objectify.Key;
+import com.heys.dating.domain.member.Member;
+import com.heys.dating.domain.member.MemberRole;
+import com.heys.dating.domain.member.Profile;
 
 public class DatingUserDetails extends User implements UserDetails {
 
 	private static final long serialVersionUID = 3491485521549818126L;
 
 	private static Collection<? extends GrantedAuthority> getAuthorities(
-			final Set<String> privileges) {
+			final Set<MemberRole> privileges) {
 		if (null == privileges)
 			return new ArrayList<GrantedAuthority>();
 
 		final List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-		for (final String privilege : privileges) {
-			authorities.add(new SimpleGrantedAuthority(privilege));
+		for (final MemberRole privilege : privileges) {
+			authorities.add(new SimpleGrantedAuthority(privilege.name()));
 		}
 		return authorities;
 	}
 
-	private final String salt;
-
-	public DatingUserDetails() {
-		super("tim", "test{timThu Apr 25 17:49:41 CEST 2013}", true, true,
-				false, false, getAuthorities((Set<String>) SetUtils
-						.toSet("ROLE_USER")));
-		salt = "{timThu Apr 25 17:49:41 CEST 2013}";
+	private static Key<Member> setMemberKey(final Member member) {
+		try {
+			return Key.create(member);
+		} catch (final IllegalArgumentException e) {
+			return null;
+		}
 	}
 
-	public DatingUserDetails(final Member customer) {
-		super(customer.getLogin(), customer.getPassword(),
-				customer.isEnabled(), true, !customer.hasExpiredCredentials(),
-				!customer.isLocked(), getAuthorities(customer.getPrivileges()));
+	private final Key<Member> memberKey;
+	private final String salt;
 
-		salt = customer.getLogin() + customer.getCreationDate().toString();
+	private final Key<Profile> memberProfileKey;
+
+	public DatingUserDetails(final Member member) {
+		super(member.getLogin(), member.getPassword(), member.isEnabled(),
+				true, !member.isHasExpiredCredentials(), !member.isLocked(),
+				getAuthorities(member.getPrivileges()));
+
+		final String saltContents = member.getLogin()
+				+ member.getCreationDate().toString();
+
+		memberKey = setMemberKey(member);
+		memberProfileKey = member.getProfile();
+		salt = DigestUtils.md5Hex(saltContents);
+	}
+
+	public Key<Member> getMemberKey() {
+		return memberKey;
+	}
+
+	public Key<Profile> getMemberProfileKey() {
+		return memberProfileKey;
 	}
 
 	public String getSalt() {

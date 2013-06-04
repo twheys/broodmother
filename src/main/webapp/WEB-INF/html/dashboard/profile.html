@@ -11,8 +11,8 @@
 
 
 <body tiles:fragment="content">
-	<img th:href="@{${profilePreviewUrl}}" id="profile_pic_pre"/>
-	<span id="account_username_text" th:text="${user.getLogin()}">Timmy</span>
+	<img th:src="@{'/p/' + ${login} + '/preview.png'}" id="profile_pic_pre"/>
+	<span id="account_username_text" th:text="${login}">Timmy</span>
 	<hr class="profile_pre_div"/>
 </body>
 

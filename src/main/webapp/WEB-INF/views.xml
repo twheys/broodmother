@@ -2,7 +2,7 @@
 <!DOCTYPE tiles-definitions PUBLIC
     "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
     "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
- 
+
 <tiles-definitions>
 	
 	<definition name="login" extends="simpleLayout">
@@ -26,23 +26,7 @@
 	<definition name="dashboard" extends="standardLayout">
         <put-attribute name="title" value="Dating" type="string" />
         
-		<put-attribute name="content">
-			<definition template="html/dashboard/dashboard.html :: content" templateType="thymeleaf">
-				<put-attribute name="profile" value="html/dashboard/profile.html :: content" type="thymeleaf"/>
-				<put-attribute name="messages" value="html/dashboard/messages.html :: content" type="thymeleaf"/>
-				<put-attribute name="side.tips" value="html/dashboard/side_tips.html :: content" type="thymeleaf"/>
-				<put-attribute name="side.ad" value="html/dashboard/side_ad.html :: content" type="thymeleaf"/>
-				
-				<put-attribute name="navigation" value="html/dashboard/navigation.html :: content" type="thymeleaf"/>
-				<put-attribute name="search" value="html/dashboard/search.html :: content" type="thymeleaf"/>
-				<put-attribute name="content.ad" value="html/dashboard/content_ad.html :: content" type="thymeleaf"/>
-				<put-attribute name="overview" value="html/dashboard/overview.html :: content" type="thymeleaf"/>
-				<put-attribute name="connections" value="html/dashboard/connections.html :: content" type="thymeleaf"/>
-				<put-attribute name="recommended" value="html/dashboard/recommended.html :: content" type="thymeleaf"/>
-				<put-attribute name="visits" value="html/dashboard/visits.html :: content" type="thymeleaf"/>
-				<put-attribute name="footer.tips" value="html/dashboard/tips.html :: content" type="thymeleaf"/>
-			</definition>
-		</put-attribute>
+		<put-attribute name="content" value="dashboard-content" />
 	</definition>
 	
 </tiles-definitions>

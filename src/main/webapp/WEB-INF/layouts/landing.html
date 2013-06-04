@@ -10,68 +10,75 @@
 
 <title tiles:string="title">Dating Title</title>
 
-<link rel="stylesheet" type="text/css" media="all" th:href="@{/r/css/main.css}" />
-<link rel="stylesheet" type="text/css" media="all" th:href="@{/r/css/dating.css}" />
+<link rel="stylesheet" type="text/css" media="all"
+	th:href="@{/r/css/main.css}" />
+<link rel="stylesheet" type="text/css" media="all"
+	th:href="@{/r/css/dating.css}" />
 
-<link rel="stylesheet" type="text/css" media="all" th:href="@{/r/css/960/reset.css}" />
-<link rel="stylesheet" type="text/css" media="all" th:href="@{/r/css/960/text.css}" />
-<link rel="stylesheet" type="text/css" media="all" th:href="@{/r/css/960/960.css}" />
+
+<link rel="stylesheet" type="text/css" media="all"
+	th:href="@{/r/css/960/reset.css}" />
+<link rel="stylesheet" type="text/css" media="all"
+	th:href="@{/r/css/960/text.css}" />
+<link rel="stylesheet" type="text/css" media="all"
+	th:href="@{/r/css/960/960.css}" />
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 
 </head>
-
 <body>
 
-<div class="row_1">
+	<div class="row_1">
 
-	<div class="container_16">
-		<header tiles:include="header.language" class="grid_3"></header>
-		
-		<header tiles:include="header.login" class="prefix_8 grid_5"></header>
-	</div>
-	
-</div>
-	
-<div class="clear"></div>
-	
-<div class="row_2">
+		<div class="container_16">
+			<header tiles:include="header.language" class="grid_3"></header>
 
-	<div class="container_16">
-		<header tiles:include="header.logo" class="grid_3 suffix_1"></header>
-	
-		<header tiles:include="header.search" class="grid_12"></header>
-	</div>
-	
-</div>
-		
-<div class="clear"></div>
-	
-<div class="row_3">
+			<header tiles:include="header.login" class="prefix_8 grid_5"></header>
+		</div>
 
-	<div class="container_16">
-		<section tiles:include="story1" class="heading"></section>
 	</div>
-	
-</div>
-		
-<div class="clear"></div>
-	
-<div class="row_4">
 
-	<div class="container_12">
-		<section tiles:include="story2" class="features"></section>
-	</div>
-	
-</div>
-		
-<div class="clear"></div>
-	
-<div class="row_5">
+	<div class="clear"></div>
 
-	<div class="container_16">
-		<footer tiles:include="footer" class="grid_16"></footer>
+	<div class="row_2">
+
+		<div class="container_16">
+			<header tiles:include="header.logo" class="grid_3 suffix_1"></header>
+
+			<header tiles:include="header.search" class="grid_12"></header>
+		</div>
+
 	</div>
-	
-</div>
+
+	<div class="clear"></div>
+
+	<div class="row_3">
+
+		<div class="container_16">
+			<section tiles:include="story1" class="heading"></section>
+		</div>
+
+	</div>
+
+	<div class="clear"></div>
+
+	<div class="row_4">
+
+		<div class="container_12">
+			<section tiles:include="story2" class="features"></section>
+		</div>
+
+	</div>
+
+	<div class="clear"></div>
+
+	<div class="row_5">
+
+		<div class="container_16">
+			<footer tiles:include="footer" class="grid_16"></footer>
+		</div>
+
+	</div>
 
 </body>
 

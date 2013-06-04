@@ -13,7 +13,7 @@
 <body tiles:fragment="content">
 
 	<h3 th:text="#{register-success.page.title}">Success!</h3>
-	<h3 th:text="#{register-success.page.content1(${member.login},${member.email})}">Success!</h3>
+	<h3 th:text="#{register-success.page.content1(${member.getLogin()},${member.getEmail()})}">Success!</h3>
 	
 </body>
 </html>

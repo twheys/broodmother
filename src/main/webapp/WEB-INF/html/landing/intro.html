@@ -11,18 +11,21 @@
 
 <body tiles:fragment="content">
 	
-	<div class="grid_6" id="landing_main_text">
-		<h2 th:text="#{landing.page.title}">Dating Home</h2>
+	<div class="span6" id="landing_main_text">
+		<h2 th:text="#{landing.page.title}">
+			Dating Home
+		</h2>
+		<hr/>
 		<p th:text="#{landing.page.content1}">
 			Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
 			sed diam nonumy eirmod tempor invidunt ut labore et dolore
 			magna aliquyam erat, sed diam voluptua. At
 		</p>
-		<a class="button" th:href="@{/service}" th:text="#{landing.button.service}">Learn More</a>
-		<a class="button" th:href="@{/service}" th:text="#{landing.button.register}">Sign Up</a>
+		<a class="button1 big_button intro_button" th:href="@{/service}" th:text="#{landing.button.service}">Learn More</a>
+		<a class="button1 big_button intro_button" th:href="@{/register}" th:text="#{landing.button.register}">Sign Up</a>
 	</div>
 	
-	<div class="grid_10" id="landing_main_img"></div>
+	<div class="span6" id="landing_main_img"></div>
 	
 	<div tiles:include="registration" id="landing_register_popup"></div>
 	

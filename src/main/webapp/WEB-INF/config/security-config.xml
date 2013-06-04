@@ -17,19 +17,23 @@
 		<intercept-url pattern="/contact" access="permitAll" />
 		<intercept-url pattern="/jobs" access="permitAll" />
 		<intercept-url pattern="/register/**" access="permitAll" />
-		<intercept-url pattern="/login/**" access="permitAll" />
+		<intercept-url pattern="/login" access="permitAll" />
+		<intercept-url pattern="/gateway/**" access="permitAll" />
 		
 		<intercept-url pattern="/dashboard/**" access="isAuthenticated()" />
+		<intercept-url pattern="/profile/**" access="isAuthenticated()" />
+		<intercept-url pattern="/messages/**" access="isAuthenticated()" />
+		<intercept-url pattern="/account/**" access="isAuthenticated()" />
 		
 		<intercept-url pattern="/_ah/**" access="permitAll"/>
 		
-		<form-login username-parameter="username" password-parameter="password" always-use-default-target="false"
+		<form-login username-parameter="username" password-parameter="password"
+		 	authentication-success-handler-ref="AuthenticationSuccessHandler"
 			login-page="/login" 
 			login-processing-url="/gateway"
-			default-target-url="/dashboard"
 			authentication-failure-url="/login?error=1" />
-		<remember-me key="1234567890"  />
-		<logout logout-success-url="/logout" />
+		<!-- <remember-me key="1234567890"  /> -->
+		<logout logout-url="/logout" logout-success-url="/"/>
 	</http>
 
 	<authentication-manager alias="authenticationManager">

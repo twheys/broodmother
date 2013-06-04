@@ -1,142 +1,171 @@
 package com.heys.dating.domain;
 
-import java.util.Date;
+import static com.googlecode.objectify.ObjectifyService.ofy;
+
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.NonUniqueResultException;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
+import javax.validation.ConstraintViolationException;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.transaction.annotation.Transactional;
+import com.googlecode.objectify.Key;
+import com.googlecode.objectify.ObjectifyService;
+import com.googlecode.objectify.cmd.DeleteType;
+import com.googlecode.objectify.cmd.LoadType;
 
-import com.google.appengine.api.datastore.Key;
+public abstract class AbstractRepository<TType extends AbstractEntity>
+		implements Repository<TType> {
 
-@Transactional
-public abstract class AbstractRepository<TType extends AbstractEntity> {
 	protected final Class<TType> type;
-
-	@PersistenceContext
-	protected EntityManager entityManager;
+	private Validator validator;
 
 	public AbstractRepository(final Class<TType> type) {
+		ObjectifyService.register(type);
 		this.type = type;
+
+		final ValidatorFactory factory = Validation
+				.buildDefaultValidatorFactory();
+		validator = factory.getValidator();
 	}
 
-	public long count() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	public void delete(final Iterable<? extends TType> entities) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void delete(final Key id) {
-		final TType entity = findOne(id);
-		delete(entity);
-
-	}
-
-	public void delete(final TType entity) {
-		entityManager.remove(entity);
-	}
-
-	public void deleteAll() {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void deleteAllInBatch() {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void deleteInBatch(final Iterable<TType> entities) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public boolean exists(final Key id) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	public List<TType> findAll() {
-		return entityManager.createQuery("from " + type.getName(), type)
-				.getResultList();
-	}
-
-	public Iterable<TType> findAll(final Iterable<Key> ids) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public Page<TType> findAll(final Pageable pageable) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public List<TType> findAll(final Sort sort) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public TType findOne(final Key key) {
-		return entityManager.find(type, key);
-	}
-
-	public void flush() {
-		// TODO Auto-generated method stub
-
-	}
-
-	/**
-	 * Since the JPA annoyingly throws an exception with the getSingleResult
-	 * method for a null result, this method wraps that and only throws an
-	 * exception if there are more than one results, returning just null if
-	 * there are no results.
+	/*
+	 * (non-Javadoc)
 	 * 
-	 * @param query
-	 * @return
+	 * @see com.heys.dating.domain.Repository#count()
 	 */
-	protected TType getSingleResult(final TypedQuery<TType> query) {
-		final List<TType> results = query.setMaxResults(2).getResultList();
-		if (1 == results.size()) {
-			return results.get(0);
-		}
-		if (2 == results.size()) {
-			throw new NonUniqueResultException();
-		}
-		return null;
+	@Override
+	public int count() {
+		return load().count();
 	}
 
-	public <S extends TType> List<S> save(final Iterable<S> entities) {
-		// TODO Auto-generated method stub
-		return null;
+	protected DeleteType delete() {
+		return ofy().delete().type(type);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.heys.dating.domain.Repository#delete(java.lang.Iterable)
+	 */
+	@Override
+	public void delete(final Iterable<? extends TType> entities) {
+		ofy().delete().entities(entities).now();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.heys.dating.domain.Repository#delete(java.lang.Long)
+	 */
+	@Override
+	public void delete(final Long id) {
+		delete().id(id).now();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.heys.dating.domain.Repository#delete(TType)
+	 */
+	@Override
+	public void delete(final TType entity) {
+		ofy().delete().entity(entity).now();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.heys.dating.domain.Repository#exists(java.lang.Long)
+	 */
+	@Override
+	public boolean exists(final Long id) {
+		return null != load().id(id).now();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.heys.dating.domain.Repository#findAll(java.util.List)
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<TType> findAll(final List<Key<TType>> keys) {
+		return (List<TType>) ofy().load().keys(keys);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.heys.dating.domain.Repository#findOne(com.googlecode.objectify.Key)
+	 */
+	@Override
+	public TType findOne(final Key<TType> key) {
+		return ofy().load().key(key).now();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.heys.dating.domain.Repository#findOne(java.lang.Long)
+	 */
+	@Override
+	public TType findOne(final Long id) {
+		return load().id(id).now();
+	}
+
+	protected LoadType<TType> load() {
+		return ofy().load().type(type);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.heys.dating.domain.Repository#save(java.lang.Iterable)
+	 */
+	@Override
+	public <S extends TType> Iterable<S> save(final Iterable<S> entities) {
+		ofy().save().entities(entities).now();
+		return entities;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.heys.dating.domain.Repository#save(S)
+	 */
+	@Override
 	public <S extends TType> S save(final S entity) {
-		final Date modificationDate = new Date();
-		if (null == entity.getCreationDate()) {
-			entity.setCreationDate(modificationDate);
-		}
-		entity.setModificationDate(modificationDate);
-		entityManager.persist(entity);
+		ofy().save().entity(entity).now();
 		return entity;
 	}
 
-	public TType saveAndFlush(final TType entity) {
-		save(entity);
-		flush();
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.heys.dating.domain.Repository#save(java.lang.Iterable)
+	 */
+	@Override
+	public <S extends TType> Iterable<S> saveAsync(final Iterable<S> entities) {
+		ofy().save().entities(entities);
+		return entities;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.heys.dating.domain.Repository#save(S)
+	 */
+	@Override
+	public <S extends TType> S saveAsync(final S entity) {
+		ofy().save().entity(entity);
 		return entity;
 	}
 
-	public void update(final TType entity) {
-		entityManager.merge(entity);
+	@Override
+	public void validate(final TType entity)
+			throws ConstraintViolationException {
+		validator.validate(entity);
 	}
 }

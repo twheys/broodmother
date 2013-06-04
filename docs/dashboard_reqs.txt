@@ -12,3 +12,9 @@ Adx2: Small horizontal bar image ad, approx 72px height
 Recommendations: [Fieldset with label] Grid of recommended users, 3 columns, 2 rows. Each user includes a picture (approx. 100x130), their username, and some room for a text description
 Visitors: [Fieldset with label] Same as recommendations, except lists users that recently visited your profile.  Only difference in appearence is instead of text description, use that space for some possible icon images (32x32)
 Tipsx2: Panel that contains arbitrary information
+
+
+
+
+one thing about the dashboard is i dont want it to look like the profile page, so no big profile picture or something on it 01:55:28 PM
+it should be orientated towards the user using the site's features

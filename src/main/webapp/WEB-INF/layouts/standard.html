@@ -24,7 +24,11 @@
 <div class="row_1">
 
 	<div class="container_16">
-		<header tiles:include="header.logo" class="grid_3"></header>
+		<header class="grid_3">
+			<a th:href="@{/}" href="#">
+				<img id="logo" class="logo-small" src="#" th:src="@{/r/logo/small.png}" alt="logo"/>
+			</a>
+		</header>
 		
 		<header tiles:include="header.user" class="prefix_8 grid_5"></header>
 	</div>

@@ -1,22 +1,13 @@
-.row_1 {
-	height: 50px;
+/*****************
+ *    Landing Rows
+******************/
+.header,
+.header1 {
+	/*height: 50px;*/
 }
 
-.row_2 {
-	height: 85px;
-}
-
-.row_3 {
-	height: 275px;
-}
-
-.row_4 {
-	height: 225px;
-}
-
-.row_5 {
-	min-height: 350px;
-	height: auto;
+.header2 {
+	/*height: 85px;*/
 }
 
 .content {
@@ -25,46 +16,70 @@
 	padding-bottom: 115px;
 }
 
+.content1 {
+	height: 275px;
+}
 
+.content2 {
+	padding: 35px 0;
+}
+
+.footer {
+	min-height: 150px;
+	height: auto;
+	padding-top: 25px;
+}
+
+.logo-landing {
+	margin-top: 15px;
+}
 
 
 #landing_register_popup {
 	display: none;
 }
 
-.login-small input[type=text],
-.login-small input[type=password] {
-	height: 12px;
-	width: 132px;
+
+/*****************
+ *    Language Selector
+******************/
+#language_select {
+	margin-top: 15px;
 }
-.login-small input[type=submit] {
-	height: 23px;
-	width: 55px;
-	float: right;
+#language_select li {
+	margin-left: 0;
 }
-.login-large {
-	margin-bottom: 10px;
+#language_select:hover > .language_options {
+	display: block;
 }
-.login-large input[type=text],
-.login-large input[type=password] {
-	height: 30px;
-	width: 300px;
-	float: right;
+#language_select .language_options {
+    list-style: none;
+    margin: 0;
+    padding: 0;    
+    display: none;
+    position: absolute;
+    z-index: 99999;
 }
-.login-large input[type=submit] {
-	height: 36px;
-	width: 100px;
-	float: right;
+#language_select .language_options > a {
+    display: block;
+	border: 1px solid black;
+    padding: 5px;
+    width: 100px;
+    display: block;
+    white-space: nowrap;
 }
-.login-links {
-	margin-top: 25px;
+#language_select:after{
+	visibility: hidden;
+	display: block;
+	font-size: 0;
+	content: " ";
+	clear: both;
+	height: 0;
 }
 
-.search-form {
-	height: 35px;
-	padding: 25px 0;
-}
-
+/*****************
+ *    Landing Content
+******************/
 .seo-img {
 	height: 100px;
 	width: 100%;
@@ -75,19 +90,33 @@
 	display: none;
 }
 
+
+
+/*****************
+ *    Search Bar
+******************/
+#search_bar {
+    margin-top: 25px;
+}
+
+.search-form {
+	padding: 10px 0;
+	display: inline;
+}
+#adv_search {
+	margin-left: 435px;
+}
 #search {
 	height: 32px;
 	width: 32px;
 }
-
 #criteria {
 	height: 24px;
-	width: 400px;
+	width: 500px;
 }
-
 #browse {
-	height: 18px;
-	width: 75px;
+	padding: 2px;
+	margin-left: 10px;
 }
 
 .heading {
@@ -109,4 +138,8 @@
 
 #footer-nav {
 	text-align: center;
+}
+
+#logout {
+	float: right;
 }

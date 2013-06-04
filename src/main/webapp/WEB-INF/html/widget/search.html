@@ -27,15 +27,32 @@
 <body>
 <div  tiles:fragment="content" id="test">
 
-	<div id="search_bar">
-		<form method="get" action="#" th:action="@{/search}" class="search-form">
-			<input id="search" type="submit" name="submit"/>
-			<input id="criteria" type="search" name="criteria"/>
-		</form>
-		<button id="browse" class="button" th:href="@{/browse}" th:text="#{search.button.browse}">browse</button>
-	</div>
-	
-	<a id="adv_search" class="button" href="#" th:text="#{search.button.search}">advanced search</a>
+	<form method="get" action="#" th:action="@{/search}">
+		<div id="search_bar">
+			<div class="search-form">
+				<input id="search" type="submit" name="submit"/>
+				<select id="sel1">
+					<option value="0"
+							th:text="#{search.form.label.select1}"
+							class="option_text"
+							>I am a ..</option>
+					<option>Option 1</option>
+					<option>Option 2</option>
+				</select>
+				<select id="sel2">
+					<option value="0"
+							th:text="#{search.form.label.select2}"
+							class="option_text"
+							>Looking for ..</option>
+					<option>Option 1</option>
+					<option>Option 2</option>
+				</select>
+			</div>
+			<a id="browse" class="button2" th:href="@{/browse}" href="/browse" th:text="#{search.button.browse}">browse</a>
+		</div>
+		
+		<a id="adv_search" class="adv-search" href="#" th:text="#{search.button.search}">advanced search</a>
+	</form>
 	
 </div>
 </body>

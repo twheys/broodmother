@@ -1,67 +1,48 @@
 package com.heys.dating.domain;
 
 import java.io.Serializable;
-import java.util.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.MappedSuperclass;
+import com.googlecode.objectify.annotation.EntitySubclass;
+import com.googlecode.objectify.annotation.Id;
 
-import com.google.appengine.api.datastore.Key;
-
-@Entity
-@MappedSuperclass
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@EntitySubclass
 public abstract class AbstractEntity implements Serializable {
-	private static final long serialVersionUID = -403483197909094703L;
+	private static final long serialVersionUID = -8729928336779606038L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Key key;
-
-	private Date creationDate;
-	private Date modificationDate;
-	private long version;
+	private Long id;
 
 	public AbstractEntity() {
-		creationDate = new Date();
-		modificationDate = new Date();
-		version = 1L;
+		// Default constructor
 	}
 
-	public Date getCreationDate() {
-		return creationDate;
+	@Override
+	public boolean equals(final Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		final AbstractEntity other = (AbstractEntity) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
 	}
 
-	public Key getKey() {
-		return key;
+	public Long getId() {
+		return id;
 	}
 
-	public Date getModificationDate() {
-		return modificationDate;
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (id == null ? 0 : id.hashCode());
+		return result;
 	}
 
-	public long getVersion() {
-		return version;
-	}
-
-	public void setCreationDate(final Date creationDate) {
-		this.creationDate = creationDate;
-	}
-
-	public void setKey(final Key key) {
-		this.key = key;
-	}
-
-	public void setModificationDate(final Date modificationDate) {
-		this.modificationDate = modificationDate;
-	}
-
-	public void setVersion(final long version) {
-		this.version = version;
-	}
 }

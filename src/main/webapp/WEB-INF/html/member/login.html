@@ -12,34 +12,35 @@
 
 <body tiles:fragment="content">
 
-<form method="post" th:action="@{/gateway}" action="/login/check" class="grid_12 login-page">
-
-	<p th:if="${error}" th:text="#{login.message.error}" class="login-messages">Wrong user name or password!</p>
-
-	<div class="login-large">
-		<label for="username" th:text="#{login.label.username}">User Name or Email</label>
-		<input id="username" name="username" type="text" />
+	<div class="grid_6">
+		<img th:src="@{/r/ad/login_ad.png}" class="login_ad"/>
 	</div>
 
-	<div class="login-large">
-		<label for="password" th:text="#{login.label.password}">Password</label>
-		<input name="password" type="password" />
-	</div>
-
-	<div class="login-large">
-		<input type="submit" name="Login" th:value="#{login.button.login}" value="Login" />
-	</div>
-
-	<div class="login-links">
-		<a href="#" th:href="@{/login/forgot}" th:text="#{login.link.fpassword}">Forgot Password?</a>
-		<a href="#" th:href="@{/register}" th:text="#{login.button.register}" class="button">Create Account</a>
-	</div>
-
-</form>
-
-<div class="grid_4">
-	<img th:src="@{/dynamic/login_ad.png}" class="login_ad"/>
-</div>
+	<form method="post" th:action="@{/gateway}" action="/login/check" class="grid_10 login-page">
+	
+		<p th:if="${error}" th:text="#{login.message.error}" class="login-messages">Wrong user name or password!</p>
+	
+		<div class="login-large">
+			<label for="username" th:text="#{login.label.username}">User Name or Email</label>
+			<input id="username" name="username" type="text" />
+		</div>
+	
+		<div class="login-large">
+			<label for="password" th:text="#{login.label.password}">Password</label>
+			<input name="password" type="password" />
+		</div>
+	
+		<div class="login-large">
+			<input type="submit" name="Login" class="button2 big_button" 
+				th:value="#{login.button.login}" value="Login" />
+		</div>
+	
+		<div class="login-links">
+			<a href="#" th:href="@{/login/forgot}" th:text="#{login.link.fpassword}">Forgot Password?</a>
+			<a href="#" th:href="@{/register}" th:text="#{login.button.register}">Create Account</a>
+		</div>
+	
+	</form>
 	
 </body>
 

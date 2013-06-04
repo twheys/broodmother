@@ -15,7 +15,8 @@ public class CalendarUtil {
 
 	public List<Integer> getSelectableYears() {
 		final List<Integer> years = new ArrayList<Integer>();
-		final int currentYear = new DateTime(new Date()).getYear();
+		final int currentYear = new DateTime(new Date()).minusYears(18)
+				.getYear();
 		for (int i = 0; i < 99; i++) {
 			years.add(currentYear - i);
 		}

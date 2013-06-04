@@ -11,7 +11,10 @@
 
 
 <body tiles:fragment="content">
-	<p id="messages" th:text="#{dashboad.link.messages}">messages</p>
+	<h4 id="messages" th:text="#{dashboad.link.messages}">messages</h4>
+	<div class="message-box-small" th:each="message : ${messages}">
+		
+	</div>
 </body>
 
 </html>

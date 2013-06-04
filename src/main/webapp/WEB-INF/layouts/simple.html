@@ -10,44 +10,55 @@
 
 <title tiles:string="title">Dating Title</title>
 
-<link rel="stylesheet" type="text/css" media="all" th:href="@{/r/css/main.css}" />
-<link rel="stylesheet" type="text/css" media="all" th:href="@{/r/css/dating.css}" />
+<link rel="stylesheet" type="text/css" media="all"
+	th:href="@{/r/css/main.css}" />
+<link rel="stylesheet" type="text/css" media="all"
+	th:href="@{/r/css/dating.css}" />
 
-<link rel="stylesheet" type="text/css" media="all" th:href="@{/r/css/960/reset.css}" />
-<link rel="stylesheet" type="text/css" media="all" th:href="@{/r/css/960/text.css}" />
-<link rel="stylesheet" type="text/css" media="all" th:href="@{/r/css/960/960.css}" />
+<link rel="stylesheet" type="text/css" media="all"
+	th:href="@{/r/css/reset.css}" />
+<link rel="stylesheet" type="text/css" media="all"
+	th:href="@{/r/css/bootstrap/css/bootstrap.css}" />
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 
 </head>
 
 <body>
 
-<div class="row_1">
+	<div class="header">
 
-	<div class="container_16">
-		<header tiles:include="header.logo" class="grid_3 suffix_13"></header>
-	</div>
-	
-</div>
-		
-<div class="clear"></div>
-	
-<div class="content">
+		<div class="row">
+			<header class="span3">
+				<a th:href="@{/}" href="#"> <img id="logo" class="logo-small"
+					src="#" th:src="@{/r/logo/logo.png}" alt="logo" />
+				</a>
+			</header>
 
-	<div class="container_16">
-		<section tiles:include="content"></section>
-	</div>
-	
-</div>
-		
-<div class="clear"></div>
-	
-<div class="row_5">
+			<header tiles:include="header.language" class="offset6 span3"></header>
+		</div>
 
-	<div class="container_16">
-		<footer tiles:include="footer" class="grid_16"></footer>
 	</div>
-	
-</div>
+
+
+
+	<div class="content">
+
+		<div class="row">
+			<section tiles:include="content"></section>
+		</div>
+
+	</div>
+
+
+
+	<div class="footer">
+
+		<div class="row">
+			<footer tiles:include="footer" class="span12"></footer>
+		</div>
+
+	</div>
 
 </body>
 

@@ -1,7 +1,7 @@
 package com.heys.dating.util;
 
-import com.heys.dating.domain.user.Gender;
-import com.heys.dating.domain.user.Picture;
+import com.heys.dating.domain.member.Gender;
+import com.heys.dating.domain.member.Picture;
 
 public class UrlUtil {
 
@@ -36,7 +36,7 @@ public class UrlUtil {
 			}
 		} else {
 			sb.append("/p/");
-			sb.append(profilePic.getKey().toString());
+			sb.append(profilePic.getId().toString());
 		}
 		return sb;
 	}

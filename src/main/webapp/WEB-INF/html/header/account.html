@@ -11,8 +11,10 @@
 
 
 <body tiles:fragment="content">
-	<img th:href="@{${profileIconUrl}}" id="profile_pic_ico"/>
-	<span id="account_username_text" th:text="${user.getLogin()}">Timmy</span>
+	<img th:src="@{'/p/' + ${login} + '/icon.png'}" id="profile_pic_ico"/>
+	<span id="account_username_text" th:text="${login}">Timmy</span>
+	<span>|</span>
+	<a href="#" th:href="@{/logout}" th:text="#{login.link.logout}" id="logout"></a>
 </body>
 
 </html>

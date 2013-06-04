@@ -18,12 +18,12 @@
 	
 		<div>
 			<label for="login" th:text="#{register.form.label.login}">User Name</label>
-			<input id="login" name="login" type="text"/>
+			<input id="login" name="login" type="text" th:field="*{login}"/>
 		</div>
 		
 		<div>
 			<label for="password" th:text="#{register.form.label.password}">Password</label>
-			<input id="password" name="password" type="password"  th:field="*{password}"/>
+			<input id="password" name="password" type="password" th:field="*{password}"/>
 		</div>
 		
 		<div>
