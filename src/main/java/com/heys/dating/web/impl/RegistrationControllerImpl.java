@@ -8,7 +8,6 @@ import javax.servlet.http.HttpSession;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 
-import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +16,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.appengine.repackaged.org.joda.time.DateMidnight;
 import com.heys.dating.domain.member.Member;
-import com.heys.dating.service.MemberManager;
+import com.heys.dating.manager.MemberManager;
 import com.heys.dating.web.RegistrationController;
 import com.heys.dating.web.dto.Registration;
 
@@ -86,8 +86,8 @@ public class RegistrationControllerImpl implements RegistrationController {
 			return createRegistrationForm(data, result.getAllErrors());
 		}
 
-		final DateTime birthdate = new DateTime(data.getBirthyear(),
-				data.getBirthmonth(), data.getBirthday(), 0, 0, 0, 0);
+		final DateMidnight birthdate = new DateMidnight(data.getBirthyear(),
+				data.getBirthmonth(), data.getBirthday());
 		try {
 			final Member member = memberService.register(data.getLogin(),
 					data.getPassword(), data.getEmail(), birthdate, locale);

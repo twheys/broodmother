@@ -14,7 +14,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.googlecode.objectify.Key;
 import com.heys.dating.domain.member.Member;
 import com.heys.dating.domain.member.MemberRole;
-import com.heys.dating.domain.member.Profile;
 
 public class DatingUserDetails extends User implements UserDetails {
 
@@ -43,8 +42,6 @@ public class DatingUserDetails extends User implements UserDetails {
 	private final Key<Member> memberKey;
 	private final String salt;
 
-	private final Key<Profile> memberProfileKey;
-
 	public DatingUserDetails(final Member member) {
 		super(member.getLogin(), member.getPassword(), member.isEnabled(),
 				true, !member.isHasExpiredCredentials(), !member.isLocked(),
@@ -54,16 +51,11 @@ public class DatingUserDetails extends User implements UserDetails {
 				+ member.getCreationDate().toString();
 
 		memberKey = setMemberKey(member);
-		memberProfileKey = member.getProfile();
 		salt = DigestUtils.md5Hex(saltContents);
 	}
 
 	public Key<Member> getMemberKey() {
 		return memberKey;
-	}
-
-	public Key<Profile> getMemberProfileKey() {
-		return memberProfileKey;
 	}
 
 	public String getSalt() {

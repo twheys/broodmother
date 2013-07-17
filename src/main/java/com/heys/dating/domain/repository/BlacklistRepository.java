@@ -5,11 +5,10 @@ import com.heys.dating.domain.member.BlacklistEntry;
 
 public interface BlacklistRepository extends Repository<BlacklistEntry> {
 
-	void deleteByMember(String member);
+	void deleteByMember(final String member);
 
-	void deleteByMemberAndTargetMember(String member, String targetMember);
+	void deleteByMemberAndTarget(final String member, final String target);
 
-	BlacklistEntry findByMemberAndTargetMember(String member,
-			String targetMember);
+	int countByMemberAndTarget(final String member, final String target);
 
 }

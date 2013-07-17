@@ -1,6 +1,15 @@
 package com.heys.dating.domain.member;
 
 public enum ProfileCompletion {
-	COMPLETE, MISSING_BASIC_DETAILS, MISSING_PROFILE, MISSING_PICTURE, IGNORE
+	// Step 1
+	STEP1_MISSING_BASIC_DETAILS,
+	// Step 2
+	STEP2_MISSING_PROFILE,
+	// Step 3
+	STEP3_MISSING_PICTURE,
+	// Complete
+	COMPLETE,
+	// Skip
+	IGNORE
 
 }

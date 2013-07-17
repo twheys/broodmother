@@ -12,8 +12,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
-import com.heys.dating.service.MemberManager;
-import com.heys.dating.service.impl.NotFoundException;
+import com.heys.dating.manager.MemberManager;
+import com.heys.dating.manager.impl.NotFoundException;
 
 @Component("AuthenticationSuccessHandler")
 public class DatingAuthenticationSuccessHandler implements
@@ -33,8 +33,8 @@ public class DatingAuthenticationSuccessHandler implements
 		logger.info("Logging in user: " + principle);
 
 		try {
-			switch (memberService.isProfileComplete(principle
-					.getMemberProfileKey())) {
+			switch (memberService.getProfileComplete(principle
+					.getMemberKey())) {
 			case IGNORE:
 				response.sendRedirect("/dashboard");
 				return;

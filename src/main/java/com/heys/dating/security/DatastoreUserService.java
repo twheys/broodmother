@@ -9,7 +9,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import com.heys.dating.domain.member.Member;
-import com.heys.dating.service.MemberManager;
+import com.heys.dating.manager.MemberManager;
 
 @Component
 public class DatastoreUserService implements UserDetailsService {

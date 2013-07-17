@@ -3,41 +3,90 @@ package com.heys.dating.domain.member;
 import java.util.Date;
 import java.util.Set;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
+import org.apache.commons.lang.StringUtils;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
+
 import com.google.common.collect.Sets;
-import com.googlecode.objectify.Key;
+import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.Cache;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Index;
 import com.googlecode.objectify.annotation.OnSave;
-import com.heys.dating.domain.AbstractVersionedEntity;
+import com.heys.dating.domain.AbstractEntity;
+import com.heys.dating.domain.validation.OverAge;
 
 @Entity
 @Cache
-public class Member extends AbstractVersionedEntity {
+@Data
+@NoArgsConstructor
+@EqualsAndHashCode(of = { "login", "email" }, callSuper = true)
+@ToString(exclude = { "password" })
+public class Member extends AbstractEntity {
+
 	private static final long serialVersionUID = 8438508214003815930L;
 
-	private String login;
-	private String email;
+	/**
+	 * Uppercased Login property for insensitive indexing.
+	 */
 	@Index
 	private String loginIgnoreCase;
+
+	/**
+	 * Uppercased email property for case insensitive indexing.
+	 */
 	@Index
 	private String emailIgnoreCase;
+
+	@NotNull(message = "notnull")
+	@Length(min = 5, max = 32, message = "length 5 32")
+	@Pattern(regexp = "^[a-zA-Z]([-_][^-_]|[a-zA-Z0-9]*)+$", message = "pattern")
+	private String login;
+
+	@NotNull(message = "notnull")
+	@Email(message = "email")
+	private String email;
+
+	@NotNull(message = "notnull")
 	private String password;
+
+	/**
+	 * Transient field that is used for validation.
+	 */
+	@Length(min = 6, max = 132, message = "length 6 132")
+	@Pattern(regexp = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).+$", message = "pattern")
+	private transient String rawPassword;
+
+	@NotNull(message = "notnull")
+	@OverAge(value = 18, message = "minage")
+	private Date birthdate;
+
+	@NotNull(message = "notnull")
 	private String locale;
 	private boolean hasExpiredCredentials;
 	private boolean isActivated;
 	private boolean isBanned;
 	private boolean isEnabled;
 	private boolean isLocked;
-	private Date birthdate;
+	private Set<MemberRole> privileges = Sets.newHashSet();
+	private Ref<Profile> profile;
 
-	private Set<MemberRole> privileges;
-	private Key<Profile> profile;
-
-	Member() {
-		super();
-	}
-
+	/**
+	 * Initialize member with basic properties.
+	 * 
+	 * @param login
+	 * @param email
+	 * @param birthdate
+	 * @param locale
+	 */
 	public Member(final String login, final String email, final Date birthdate,
 			final String locale) {
 		super();
@@ -58,170 +107,11 @@ public class Member extends AbstractVersionedEntity {
 	}
 
 	@Override
-	public boolean equals(final Object obj) {
-		if (this == obj)
-			return true;
-		if (!super.equals(obj))
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		final Member other = (Member) obj;
-		if (email == null) {
-			if (other.email != null)
-				return false;
-		} else if (!email.equals(other.email))
-			return false;
-		if (login == null) {
-			if (other.login != null)
-				return false;
-		} else if (!login.equals(other.login))
-			return false;
-		return true;
-	}
-
-	public Date getBirthdate() {
-		return birthdate;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public String getEmailIgnoreCase() {
-		return emailIgnoreCase;
-	}
-
-	public String getLocale() {
-		return locale;
-	}
-
-	public String getLogin() {
-		return login;
-	}
-
-	public String getLoginIgnoreCase() {
-		return loginIgnoreCase;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public Set<MemberRole> getPrivileges() {
-		return privileges;
-	}
-
-	public Key<Profile> getProfile() {
-		return profile;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result + (email == null ? 0 : email.hashCode());
-		result = prime * result + (login == null ? 0 : login.hashCode());
-		return result;
-	}
-
-	public boolean isActivated() {
-		return isActivated;
-	}
-
-	public boolean isBanned() {
-		return isBanned;
-	}
-
-	public boolean isEnabled() {
-		return isEnabled;
-	}
-
-	public boolean isHasExpiredCredentials() {
-		return hasExpiredCredentials;
-	}
-
-	public boolean isLocked() {
-		return isLocked;
-	}
-
-	@Override
 	@OnSave
 	public void onSave() {
 		super.onSave();
-		if (null != login) {
-			loginIgnoreCase = login.toUpperCase();
-		}
-		if (null != email) {
-			emailIgnoreCase = email.toUpperCase();
-		}
-
+		loginIgnoreCase = StringUtils.upperCase(login);
+		emailIgnoreCase = StringUtils.upperCase(email);
+		rawPassword = null;
 	}
-
-	public void setActivated(final boolean isActivated) {
-		this.isActivated = isActivated;
-	}
-
-	public void setBanned(final boolean isBanned) {
-		this.isBanned = isBanned;
-	}
-
-	public void setBirthdate(final Date birthdate) {
-		this.birthdate = birthdate;
-	}
-
-	public void setEmail(final String email) {
-		this.email = email;
-	}
-
-	public void setEmailIgnoreCase(final String emailIgnoreCase) {
-		this.emailIgnoreCase = emailIgnoreCase;
-	}
-
-	public void setEnabled(final boolean isEnabled) {
-		this.isEnabled = isEnabled;
-	}
-
-	public void setHasExpiredCredentials(final boolean hasExpiredCredentials) {
-		this.hasExpiredCredentials = hasExpiredCredentials;
-	}
-
-	public void setLocale(final String locale) {
-		this.locale = locale;
-	}
-
-	public void setLocked(final boolean isLocked) {
-		this.isLocked = isLocked;
-	}
-
-	public void setLogin(final String login) {
-		this.login = login;
-	}
-
-	public void setLoginIgnoreCase(final String loginIgnoreCase) {
-		this.loginIgnoreCase = loginIgnoreCase;
-	}
-
-	public void setPassword(final String password) {
-		this.password = password;
-	}
-
-	public void setPrivileges(final Set<MemberRole> privileges) {
-		this.privileges = privileges;
-	}
-
-	public void setProfile(final Key<Profile> profile) {
-		this.profile = profile;
-	}
-
-	@Override
-	public String toString() {
-		return "Member [login=" + login + ", email=" + email
-				+ ", password=<PROTECTED>" + ", locale=" + locale
-				+ ", hasExpiredCredentials=" + hasExpiredCredentials
-				+ ", isActivated=" + isActivated + ", isBanned=" + isBanned
-				+ ", isEnabled=" + isEnabled + ", isLocked=" + isLocked
-				+ ", birthdate=" + birthdate + ", privileges=" + privileges
-				+ "]";
-	}
-
 }

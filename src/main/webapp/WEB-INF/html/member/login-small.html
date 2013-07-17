@@ -12,7 +12,7 @@
 
 <body tiles:fragment="content">
 
-<p th:if="${error}" th:text="#{login.message.error}">Wrong user name or password!</p>
+<div th:if="${error}" th:text="#{login.message.error}">Wrong user name or password!</div>
 
 <form method="post" th:action="@{/gateway}" action="/login/check" >
 

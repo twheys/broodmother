@@ -10,6 +10,7 @@
         
 		<put-attribute name="header.login" value="html/member/login-small.html :: content" type="thymeleaf"/>
 		<put-attribute name="header.language" value="html/header/language.html :: content" type="thymeleaf"/>
+		<put-attribute name="header.logo" value="html/landing/logo1.html :: content" type="thymeleaf"/>
 		<put-attribute name="header.search" value="html/widget/search.html :: content" type="thymeleaf"/>
         
 		<put-attribute name="story1">

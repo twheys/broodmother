@@ -18,16 +18,15 @@
 <!--             <property name="datanucleus.appengine.datastoreEnableXGTransactions" value="true"/> -->
         </properties>
         
-        <class>com.heys.dating.domain.AbstractEntity</class>
-        <class>com.heys.dating.domain.AbstractVersionedEntity</class>
+<!--         <class>com.heys.dating.domain.AbstractEntity</class> -->
+<!--         <class>com.heys.dating.domain.AbstractVersionedEntity</class> -->
         
-        <class>com.heys.dating.domain.user.Member</class>
-        <class>com.heys.dating.domain.user.Profile</class>
-        <class>com.heys.dating.domain.user.Picture</class>
-        <class>com.heys.dating.domain.user.Gallery</class>
+<!--         <class>com.heys.dating.domain.user.Member</class> -->
+<!--         <class>com.heys.dating.domain.user.Profile</class> -->
+<!--         <class>com.heys.dating.domain.user.Picture</class> -->
+<!--         <class>com.heys.dating.domain.user.Gallery</class> -->
         
-        <class>com.heys.dating.domain.message.Message</class>
-        <class>com.heys.dating.domain.message.Conversation</class>
-        <class>com.heys.dating.domain.message.DeliveredMessage</class>
+<!--         <class>com.heys.dating.domain.message.Message</class> -->
+<!--         <class>com.heys.dating.domain.message.Thread</class> -->
     </persistence-unit>
 </persistence>

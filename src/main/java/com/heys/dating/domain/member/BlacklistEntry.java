@@ -1,44 +1,41 @@
 package com.heys.dating.domain.member;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
+import org.apache.commons.lang.StringUtils;
+
 import com.googlecode.objectify.annotation.Cache;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Index;
-import com.heys.dating.domain.AbstractVersionedEntity;
+import com.googlecode.objectify.annotation.OnSave;
+import com.heys.dating.domain.AbstractEntity;
 
 @Entity
 @Cache
-public class BlacklistEntry extends AbstractVersionedEntity {
+@Data
+@NoArgsConstructor
+@EqualsAndHashCode(callSuper = true)
+public class BlacklistEntry extends AbstractEntity {
 	private static final long serialVersionUID = -2655677556005711483L;
 
 	@Index
-	private String blacklisted;
+	private String target;
 
 	@Index
 	private String member;
 
-	public BlacklistEntry() {
-		super();
-	}
-
-	public BlacklistEntry(final String member, final String blacklisted) {
+	public BlacklistEntry(final String member, final String target) {
 		super();
 		this.member = member;
-		this.blacklisted = blacklisted;
+		this.target = target;
 	}
 
-	public String getBlacklisted() {
-		return blacklisted;
-	}
-
-	public String getMember() {
-		return member;
-	}
-
-	public void setBlacklisted(final String blacklisted) {
-		this.blacklisted = blacklisted;
-	}
-
-	public void setMember(final String member) {
-		this.member = member;
+	@Override
+	@OnSave
+	public void onSave() {
+		member = StringUtils.upperCase(member);
+		target = StringUtils.upperCase(target);
 	}
 }

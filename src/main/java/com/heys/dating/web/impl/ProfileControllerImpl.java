@@ -17,9 +17,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.googlecode.objectify.Key;
+import com.heys.dating.domain.member.Member;
 import com.heys.dating.domain.member.Profile;
-import com.heys.dating.service.MemberManager;
-import com.heys.dating.service.impl.NotFoundException;
+import com.heys.dating.manager.MemberManager;
+import com.heys.dating.manager.impl.NotFoundException;
 import com.heys.dating.util.SecurityUtils;
 import com.heys.dating.web.ProfileContent;
 import com.heys.dating.web.ProfileController;
@@ -82,8 +83,13 @@ public class ProfileControllerImpl implements ProfileController {
 	@Override
 	@RequestMapping(value = "/profile/create", method = RequestMethod.GET)
 	public ModelAndView createProfile() {
-		final Profile profile = getAuthMemberProfile();
-		return renderViewForRegistratonStep(profile);
+		try {
+			final Key<Member> memberKey = getAuthMemberKey();
+			final Profile profile = memberService.getProfileForMember(memberKey);
+			return renderViewForRegistratonStep(profile);
+		} catch (final NotFoundException e) {
+			throw new InternalServerException(e);
+		}
 	}
 
 	@Override
@@ -96,12 +102,13 @@ public class ProfileControllerImpl implements ProfileController {
 			return createCreateProfileForm(data, result.getAllErrors());
 		}
 
-		final Profile profile = getAuthMemberProfile();
-
 		try {
-			memberService.updateProfileContent(profile, data.getDescription());
+			memberService.updateProfileContent(getAuthMemberKey(),
+					data.getDescription());
 
 			return new ModelAndView("redirect:/profile/create");
+		} catch (final NotFoundException e) {
+			throw new InternalServerException(e);
 		} catch (final ConstraintViolationException e) {
 			return createCreateProfileForm(data, e.getConstraintViolations());
 		}
@@ -117,15 +124,15 @@ public class ProfileControllerImpl implements ProfileController {
 			return createCreateProfileForm(data, result.getAllErrors());
 		}
 
-		final Profile profile = getAuthMemberProfile();
-
 		try {
-			memberService.updateProfileDetails(profile, data.getStatus(),
-					data.getGender(), data.getZipCode(),
+			memberService.updateProfileDetails(getAuthMemberKey(),
+					data.getStatus(), data.getGender(), data.getZipCode(),
 					data.getPartnerAgeMin(), data.getPartnerAgeMax(),
 					data.getPartnerGenders());
 
 			return new ModelAndView("redirect:/profile/create");
+		} catch (final NotFoundException e) {
+			throw new InternalServerException(e);
 		} catch (final ConstraintViolationException e) {
 			return createCreateProfileForm(data, e.getConstraintViolations());
 		}
@@ -141,12 +148,12 @@ public class ProfileControllerImpl implements ProfileController {
 			return createCreateProfileForm(data, result.getAllErrors());
 		}
 
-		final Profile profile = getAuthMemberProfile();
+		getAuthMemberKey();
 
 		try {
-			memberService.updateProfilePicture(profile, data.getPictureId(),
-					data.isProfilePicture(), data.getGallery(),
-					data.getDescription(), data.getVisibility());
+			// memberService.addPicture(profile, data.getPictureId(),
+			// data.isProfilePicture(), data.getGallery(),
+			// data.getDescription(), data.getVisibility());
 
 			return new ModelAndView("redirect:/profile/create");
 		} catch (final ConstraintViolationException e) {
@@ -154,17 +161,8 @@ public class ProfileControllerImpl implements ProfileController {
 		}
 	}
 
-	private Profile getAuthMemberProfile() {
-		final Key<Profile> profileKey = SecurityUtils.getCurrentUser()
-				.getMemberProfileKey();
-
-		final Profile profile;
-		try {
-			profile = memberService.getProfile(profileKey);
-		} catch (final NotFoundException e) {
-			throw new InternalServerException(e);
-		}
-		return profile;
+	private Key<Member> getAuthMemberKey() {
+		return SecurityUtils.getCurrentUser().getMemberKey();
 	}
 
 	@Override
@@ -181,13 +179,13 @@ public class ProfileControllerImpl implements ProfileController {
 
 	private ModelAndView renderViewForRegistratonStep(final Profile profile) {
 		switch (profile.getProfileCompletion()) {
-		case MISSING_BASIC_DETAILS:
+		case STEP1_MISSING_BASIC_DETAILS:
 			final ProfileDetails details = new ProfileDetails();
 			return createCreateProfileForm(details);
-		case MISSING_PROFILE:
+		case STEP2_MISSING_PROFILE:
 			final ProfileContent content = new ProfileContent();
 			return createCreateProfileForm(content);
-		case MISSING_PICTURE:
+		case STEP3_MISSING_PICTURE:
 			final ProfilePicture picture = new ProfilePicture();
 			return createCreateProfileForm(picture);
 		default:

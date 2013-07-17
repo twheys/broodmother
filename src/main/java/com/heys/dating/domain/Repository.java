@@ -1,37 +1,40 @@
 package com.heys.dating.domain;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.ConstraintViolationException;
+import javax.validation.Valid;
 
 import com.googlecode.objectify.Key;
 
 public interface Repository<TType extends AbstractEntity> {
 
-	public int count();
+	int count();
 
-	public void delete(Iterable<? extends TType> entities);
+	void delete(final Iterable<TType> entities);
 
-	public void delete(Long id);
+	void delete(final Long id);
 
-	public void delete(TType entity);
+	void delete(final TType entity);
 
-	public boolean exists(Long id);
+	boolean exists(final Long id);
 
-	public List<TType> findAll(List<Key<TType>> keys);
+	Map<Key<TType>, TType> findAll(final List<Key<TType>> keys);
 
-	public TType findOne(Key<TType> key);
+	TType findOne(final Key<TType> key);
 
-	public TType findOne(Long id);
+	TType findOne(final Long id);
 
-	public <S extends TType> Iterable<S> save(Iterable<S> entities);
+	Map<Key<TType>, TType> save(@Valid final Iterable<TType> entities);
 
-	public <S extends TType> S save(S entity);
+	TType save(@Valid final TType entity);
 
-	public <S extends TType> Iterable<S> saveAsync(Iterable<S> entities);
+	Iterable<TType> saveAsync(@Valid final Iterable<TType> entities);
 
-	public <S extends TType> S saveAsync(S entity);
+	TType saveAsync(@Valid final TType entity);
 
-	void validate(TType entity) throws ConstraintViolationException;
+	void validate(final TType entity, final Class<?>... groups)
+			throws ConstraintViolationException;
 
 }

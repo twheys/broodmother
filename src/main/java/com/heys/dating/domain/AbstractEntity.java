@@ -1,48 +1,41 @@
 package com.heys.dating.domain;
 
 import java.io.Serializable;
+import java.util.Date;
+
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
 import com.googlecode.objectify.annotation.EntitySubclass;
 import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.OnSave;
 
 @EntitySubclass
+@EqualsAndHashCode(of = "id", callSuper = false)
 public abstract class AbstractEntity implements Serializable {
 	private static final long serialVersionUID = -8729928336779606038L;
 
 	@Id
+	@Getter
 	private Long id;
 
+	@Getter
+	private Date creationDate;
+
+	@Getter
+	private Date modificationDate;
+
+	@Getter
+	private long version;
+
 	public AbstractEntity() {
-		// Default constructor
+		creationDate = new Date();
+		version = 0L;
 	}
 
-	@Override
-	public boolean equals(final Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		final AbstractEntity other = (AbstractEntity) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		return true;
+	@OnSave
+	public void onSave() {
+		modificationDate = new Date();
+		++version;
 	}
-
-	public Long getId() {
-		return id;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + (id == null ? 0 : id.hashCode());
-		return result;
-	}
-
 }

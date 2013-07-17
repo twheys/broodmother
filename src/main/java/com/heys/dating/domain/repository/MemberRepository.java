@@ -6,9 +6,9 @@ import com.heys.dating.domain.Repository;
 import com.heys.dating.domain.member.Member;
 
 public interface MemberRepository extends Repository<Member> {
-	Member findByEmail(String email);
+	Member findByEmail(final String email);
 
-	List<Member> findByLogin(List<String> logins);
+	List<Member> findByLogin(final List<String> logins);
 
-	Member findByLogin(String login);
+	Member findByLogin(final String login);
 }

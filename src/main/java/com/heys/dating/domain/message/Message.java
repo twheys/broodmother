@@ -2,42 +2,47 @@ package com.heys.dating.domain.message;
 
 import java.util.Date;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import com.googlecode.objectify.Key;
+import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.Cache;
 import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Parent;
 import com.heys.dating.domain.AbstractEntity;
 import com.heys.dating.domain.member.Member;
 
 @Entity
 @Cache
+@Data
+@NoArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 public class Message extends AbstractEntity {
-	private static final long serialVersionUID = 7704532339216242856L;
+	private static final long serialVersionUID = 6913633133486456956L;
 
-	private Key<Member> sender;
-	private String content;
-	private Date timestamp;
+	@Parent
+	@Getter
+	Ref<Thread> thread;
+	@Getter
+	Key<Member> sender;
+	@Getter
+	String text;
+	@Getter
+	Date sentTimestamp;
+	@Getter
+	@Setter
+	Date readTimestamp;
 
-	public Message() {
+	public Message(final Ref<Thread> thread, final Key<Member> sender,
+			final String text, final Date sentTimestamp) {
 		super();
-	}
-
-	public Message(final Key<Member> sender, final String content,
-			final Date timestamp) {
-		super();
+		this.thread = thread;
 		this.sender = sender;
-		this.content = content;
-		this.timestamp = timestamp;
-	}
-
-	public String getContent() {
-		return content;
-	}
-
-	public Key<Member> getSender() {
-		return sender;
-	}
-
-	public Date getTimestamp() {
-		return timestamp;
+		this.text = text;
+		this.sentTimestamp = sentTimestamp;
 	}
 }
