@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import com.google.appengine.repackaged.org.joda.time.DateMidnight;
 import com.googlecode.objectify.Ref;
-import com.heys.dating.impl.gae.security.DatingUserDetails;
 import com.heys.dating.member.Gender;
 import com.heys.dating.member.Member;
 import com.heys.dating.member.MemberRepository;
@@ -22,6 +21,7 @@ import com.heys.dating.member.MemberService;
 import com.heys.dating.picture.PictureService;
 import com.heys.dating.profile.Profile;
 import com.heys.dating.profile.ProfileService;
+import com.heys.dating.web.security.DatingUserDetails;
 
 @Service("MemberService")
 @Slf4j

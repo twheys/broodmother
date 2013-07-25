@@ -15,16 +15,15 @@ import com.googlecode.objectify.Key;
 import com.googlecode.objectify.Ref;
 import com.heys.dating.member.Member;
 import com.heys.dating.member.MemberRepository;
-import com.heys.dating.message.BlacklistService;
-import com.heys.dating.message.MemberMessage;
-import com.heys.dating.message.MemberMessageRepository;
-import com.heys.dating.message.MemberThread;
-import com.heys.dating.message.MemberThreadRepository;
 import com.heys.dating.message.Message;
+import com.heys.dating.message.MessageLeaf;
+import com.heys.dating.message.MessageLeafRepository;
 import com.heys.dating.message.MessageRepository;
 import com.heys.dating.message.MessageService;
 import com.heys.dating.message.MessageTransformer;
 import com.heys.dating.message.Thread;
+import com.heys.dating.message.ThreadLeaf;
+import com.heys.dating.message.ThreadLeafRepository;
 import com.heys.dating.message.ThreadRepository;
 import com.heys.dating.message.dto.ThreadDTO;
 import com.heys.dating.message.dto.ThreadListDTO;
@@ -40,57 +39,48 @@ public class MessageServiceImpl implements MessageService {
 	private MemberRepository memberRepository;
 
 	@Autowired
-	private ThreadRepository threadRepository;
+	private MessageLeafRepository messageLeafRepository;
 
 	@Autowired
-	private MemberThreadRepository memberThreadRepository;
-
-	@Autowired
-	private MemberMessageRepository memberMessageRepository;
-
-	@Autowired
-	private MessageRepository messageRepository;
-
-	@Autowired
-	private ProfileRepository profileRepository;
-
-	@Autowired
-	private BlacklistService blacklistService;
+	private MessageRepository messageMessageRepository;
 
 	@Autowired
 	private MessageTransformer messageTransformer;
 
 	@Autowired
+	private ProfileRepository profileRepository;
+
+	@Autowired
 	private QueueManager queueManager;
 
-	private MemberMessage createMemberMessage(final Member recipient,
+	@Autowired
+	private ThreadLeafRepository threadLeafRepository;
+
+	@Autowired
+	private ThreadRepository threadRepository;
+
+	private MessageLeaf createMessageLeaf(final Member recipient,
 			final Message message, final Thread thread) {
-		final MemberMessage memberMessage = new MemberMessage(
+		final MessageLeaf memberMessage = new MessageLeaf(
 				Key.create(recipient), Key.create(thread), Key.create(message),
 				message.getSentTimestamp());
-		return memberMessageRepository.validateAndSave(memberMessage);
+		return messageLeafRepository.validateAndSave(memberMessage);
 	}
 
-	private MemberThread createMemberThread(final Member owner,
+	private ThreadLeaf createOrGetThreadLeaf(final Member owner,
 			final Thread thread) {
-		return memberThreadRepository.validateAndSave(new MemberThread(Key
-				.create(owner), Key.create(thread)));
+		final ThreadLeaf memberThread = threadLeafRepository
+				.findByOwnerAndThread(owner, thread);
+		if (null == memberThread)
+			return createThreadLeaf(owner, thread);
+		return memberThread;
 	}
 
-	private Message createMessage(final Member sender, final Thread thread,
+	private Message createTextMessage(final Member sender, final Thread thread,
 			final String text) {
 		final Message message = new Message(Ref.create(thread),
 				Key.create(sender), text, new Date());
-		return messageRepository.validateAndSave(message);
-	}
-
-	private MemberThread createOrGetMemberThread(final Member owner,
-			final Thread thread) {
-		final MemberThread memberThread = memberThreadRepository
-				.findByOwnerAndThread(owner, thread);
-		if (null == memberThread)
-			return createMemberThread(owner, thread);
-		return memberThread;
+		return messageMessageRepository.validateAndSave(message);
 	}
 
 	private Thread createThread(final String subject,
@@ -101,19 +91,24 @@ public class MessageServiceImpl implements MessageService {
 				paricipantRefs));
 	}
 
+	private ThreadLeaf createThreadLeaf(final Member owner, final Thread thread) {
+		return threadLeafRepository.validateAndSave(new ThreadLeaf(Key
+				.create(owner), Key.create(thread)));
+	}
+
 	@Override
 	public ThreadDTO getMessagesForThread(final Member member,
 			final Thread thread, final Integer limit, final Integer offset) {
-		final Iterable<MemberMessage> memberMessages = memberMessageRepository
+		final Iterable<MessageLeaf> memberMessages = messageLeafRepository
 				.findByOwnerAndThread(member, thread, limit, offset,
 						"-sentTimestamp");
 
 		final List<Key<Message>> messageKeys = Lists.newArrayList();
-		for (final MemberMessage memberMessage : memberMessages) {
+		for (final MessageLeaf memberMessage : memberMessages) {
 			messageKeys.add(memberMessage.getMessage());
 		}
 
-		final Map<Key<Message>, Message> messageMap = messageRepository
+		final Map<Key<Message>, Message> messageMap = messageMessageRepository
 				.findAll(messageKeys);
 		final Map<Key<Member>, Member> memberMap = Maps.newHashMap();
 		final List<Key<Profile>> profileKeys = Lists.newArrayList();
@@ -144,18 +139,18 @@ public class MessageServiceImpl implements MessageService {
 	@Override
 	public ThreadListDTO getNewThreadsForMember(final Member member,
 			final Integer limit, final Integer offset) {
-		final Iterable<MemberThread> memberThreads = memberThreadRepository
+		final Iterable<ThreadLeaf> memberThreads = threadLeafRepository
 				.findByOwner(member, limit, offset, "-lastUpdate");
 		final List<Key<Thread>> threadKeys = Lists.newArrayList();
 		final List<Key<Message>> messageKeys = Lists.newArrayList();
-		for (final MemberThread memberThread : memberThreads) {
+		for (final ThreadLeaf memberThread : memberThreads) {
 			threadKeys.add(memberThread.getThread());
 			messageKeys.add(memberThread.getLastMessage());
 		}
 
 		final Map<Key<Thread>, Thread> threadMap = threadRepository
 				.findAll(threadKeys);
-		final Map<Key<Message>, Message> messageMap = messageRepository
+		final Map<Key<Message>, Message> messageMap = messageMessageRepository
 				.findAll(messageKeys);
 
 		final List<Key<Member>> senderKeys = Lists.newArrayList();
@@ -199,14 +194,13 @@ public class MessageServiceImpl implements MessageService {
 	@Override
 	public Message send(final Member sender, final Thread thread,
 			final String text) {
-		final Message message = createMessage(sender, thread, text);
+		final Message message = createTextMessage(sender, thread, text);
 		thread.getMessages().add(Ref.create(message));
 		threadRepository.save(thread);
 
 		for (final Ref<Member> participant : thread.getActiveParticipants()) {
 			queueManager.deliverMessage(participant.getKey(),
 					Key.create(thread), Key.create(message));
-			// sendAsync(participant.get(), thread, message);
 		}
 		return message;
 	}
@@ -214,15 +208,15 @@ public class MessageServiceImpl implements MessageService {
 	@Override
 	public void sendAsync(final Member recipient, final Thread thread,
 			final Message message) {
-		final MemberThread memberThread = createOrGetMemberThread(recipient,
+		final ThreadLeaf memberThread = createOrGetThreadLeaf(recipient, thread);
+		final MessageLeaf memberMessage = createMessageLeaf(recipient, message,
 				thread);
-		final MemberMessage memberMessage = createMemberMessage(recipient,
-				message, thread);
 
 		memberThread.setLastMessage(Key.create(message));
 		memberThread.setLastUpdate(new Date());
 		memberThread.setUnread(true);
 		memberThread.getMessages().add(Ref.create(memberMessage));
-		memberThreadRepository.save(memberThread);
+		threadLeafRepository.save(memberThread);
 	}
+
 }

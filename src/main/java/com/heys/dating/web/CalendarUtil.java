@@ -1,4 +1,4 @@
-package com.heys.dating.util;
+package com.heys.dating.web;
 
 import java.util.ArrayList;
 import java.util.Date;

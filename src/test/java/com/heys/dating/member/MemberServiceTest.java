@@ -13,12 +13,9 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.google.appengine.repackaged.org.joda.time.DateMidnight;
-import com.heys.dating.member.Gender;
-import com.heys.dating.member.Member;
-import com.heys.dating.member.MemberRole;
-import com.heys.dating.member.MemberService;
 import com.heys.dating.profile.Profile;
 import com.heys.dating.test.MemberTest;
+import com.heys.dating.util.DatastoreUtil;
 
 public class MemberServiceTest extends MemberTest {
 
@@ -55,10 +52,11 @@ public class MemberServiceTest extends MemberTest {
 		assertNotNull(member.getProfile());
 
 		final Profile profile = member.getProfile().get();
+		assertNotNull(profile);
 		assertNotNull(profile.getPartnerGenders());
 		assertNotNull(profile.getGalleries());
 		assertNotNull(profile.getOwner());
-		assertEquals(member.getLogin(), profile.getVanity());
+		assertEquals(DatastoreUtil.c(member.getLogin()), profile.getVanity());
 
 		assertEquals(registration.get(GENDER), profile.getGender());
 		assertEquals(((Locale) registration.get(LOCALE)).getCountry(),
@@ -90,10 +88,11 @@ public class MemberServiceTest extends MemberTest {
 		assertNotNull(member.getProfile());
 
 		final Profile profile = member.getProfile().get();
+		assertNotNull(profile);
 		assertNotNull(profile.getPartnerGenders());
 		assertNotNull(profile.getGalleries());
 		assertNotNull(profile.getOwner());
-		assertEquals(member.getLogin(), profile.getVanity());
+		assertEquals(DatastoreUtil.c(member.getLogin()), profile.getVanity());
 		assertEquals(Gender.UNKNOWN, profile.getGender());
 		assertEquals(((Locale) registration.get(LOCALE)).getCountry(),
 				profile.getCountry());

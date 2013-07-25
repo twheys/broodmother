@@ -19,20 +19,20 @@ import com.heys.dating.member.Member;
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class MemberMessage extends AbstractEntity {
+public class MessageLeaf extends AbstractEntity {
 
 	static final long serialVersionUID = 2615276985084137787L;
+	Key<Message> message;
 	@Parent
 	@Index
 	Key<Member> owner;
-	Key<Message> message;
-	@Index
-	Key<Thread> thread;
 	Date readTimestamp;
 	@Index
 	Date sentTimestamp;
+	@Index
+	Key<Thread> thread;
 
-	public MemberMessage(final Key<Member> owner, final Key<Thread> thread,
+	public MessageLeaf(final Key<Member> owner, final Key<Thread> thread,
 			final Key<Message> message, final Date sentTimestamp) {
 		super();
 		this.owner = owner;

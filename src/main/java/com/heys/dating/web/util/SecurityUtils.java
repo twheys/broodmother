@@ -2,7 +2,7 @@ package com.heys.dating.web.util;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import com.heys.dating.impl.gae.security.DatingUserDetails;
+import com.heys.dating.web.security.DatingUserDetails;
 
 public class SecurityUtils {
 

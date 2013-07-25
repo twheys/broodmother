@@ -5,6 +5,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.google.appengine.labs.repackaged.com.google.common.collect.Lists;
@@ -14,23 +15,24 @@ import com.heys.dating.member.Gender;
 import com.heys.dating.member.Member;
 import com.heys.dating.member.MemberService;
 
+@Ignore
 public class MemberTest extends GaeTest {
 
-	protected static final String LOGIN = "login";
-	protected static final String PASSWORD = "password";
-	protected static final String EMAIL = "email";
 	protected static final String BIRTHDATE = "birthdate";
-	protected static final String ZIPCODE = "zipCode";
+	protected static final String EMAIL = "email";
 	protected static final String GENDER = "gender";
-	protected static final String PGENDER = "partnerGender";
-	protected static final String PAGEMIN = "parterAgeMin";
-	protected static final String PAGEMAX = "partnerAgeMax";
 	protected static final String LOCALE = "locale";
+	protected static final String LOGIN = "login";
+	protected static final String PAGEMAX = "partnerAgeMax";
+	protected static final String PAGEMIN = "parterAgeMin";
+	protected static final String PASSWORD = "password";
+	protected static final String PGENDER = "partnerGender";
+	protected static final String ZIPCODE = "zipCode";
+	
+	private static int nextUserInc = 1;
 
 	@Autowired
 	protected MemberService memberSvc;
-
-	private static int nextUserInc = 1;
 
 	public MemberTest() {
 		super();

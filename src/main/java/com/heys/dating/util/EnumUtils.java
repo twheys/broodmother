@@ -4,7 +4,7 @@ import org.apache.commons.lang.StringUtils;
 
 public class EnumUtils {
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static <T extends Enum<T>> T toEnum(final String value,
 			final T defaultValue) {
 		return (T) Enum.valueOf((Class) defaultValue.getClass(),

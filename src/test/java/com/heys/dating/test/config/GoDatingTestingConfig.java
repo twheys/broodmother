@@ -9,8 +9,8 @@ import com.heys.dating.member.MemberRepository;
 import com.heys.dating.member.MemberService;
 import com.heys.dating.message.BlacklistRepository;
 import com.heys.dating.message.BlacklistService;
-import com.heys.dating.message.MemberMessageRepository;
-import com.heys.dating.message.MemberThreadRepository;
+import com.heys.dating.message.MessageLeafRepository;
+import com.heys.dating.message.ThreadLeafRepository;
 import com.heys.dating.message.MessageRepository;
 import com.heys.dating.message.MessageService;
 import com.heys.dating.message.MessageTransformer;
@@ -31,13 +31,13 @@ public interface GoDatingTestingConfig {
 
 	DeeplinkRepository deeplinkRepository();
 
-	MemberMessageRepository memberMessageRepository();
+	MessageLeafRepository memberMessageRepository();
 
 	MemberRepository memberRepository();
 
 	MemberService memberService();
 
-	MemberThreadRepository memberThreadRepository();
+	ThreadLeafRepository memberThreadRepository();
 
 	MessageRepository messageRepository();
 

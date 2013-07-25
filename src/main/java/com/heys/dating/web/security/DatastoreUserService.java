@@ -1,4 +1,4 @@
-package com.heys.dating.impl.gae.security;
+package com.heys.dating.web.security;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

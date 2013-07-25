@@ -6,8 +6,8 @@ import com.heys.dating.message.Message;
 import com.heys.dating.message.MessageRepository;
 
 @Repository
-public class MessageRepositoryDatastoreImpl extends AbstractDatastoreRepository<Message>
-		implements MessageRepository {
+public class MessageRepositoryDatastoreImpl extends
+		AbstractDatastoreRepository<Message> implements MessageRepository {
 
 	public MessageRepositoryDatastoreImpl() {
 		super(Message.class);

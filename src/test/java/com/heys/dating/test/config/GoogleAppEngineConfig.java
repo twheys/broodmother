@@ -17,9 +17,9 @@ import com.heys.dating.impl.app.ProfileServiceImpl;
 import com.heys.dating.impl.gae.SearchManagerAppEngineImpl;
 import com.heys.dating.impl.gae.repository.BlacklistRepositoryDatastoreImpl;
 import com.heys.dating.impl.gae.repository.DeeplinkRepositoryDatastoreImpl;
-import com.heys.dating.impl.gae.repository.MemberMessageRepositoryDatastoreImpl;
+import com.heys.dating.impl.gae.repository.MessageLeafRepositoryDatastoreImpl;
 import com.heys.dating.impl.gae.repository.MemberRepositoryDatastoreImpl;
-import com.heys.dating.impl.gae.repository.MemberThreadRepositoryDatastoreImpl;
+import com.heys.dating.impl.gae.repository.ThreadLeafRepositoryDatastoreImpl;
 import com.heys.dating.impl.gae.repository.MessageRepositoryDatastoreImpl;
 import com.heys.dating.impl.gae.repository.ProfileRepositoryDatastoreImpl;
 import com.heys.dating.impl.gae.repository.ThreadRepositoryDatastoreImpl;
@@ -27,8 +27,8 @@ import com.heys.dating.member.MemberRepository;
 import com.heys.dating.member.MemberService;
 import com.heys.dating.message.BlacklistRepository;
 import com.heys.dating.message.BlacklistService;
-import com.heys.dating.message.MemberMessageRepository;
-import com.heys.dating.message.MemberThreadRepository;
+import com.heys.dating.message.MessageLeafRepository;
+import com.heys.dating.message.ThreadLeafRepository;
 import com.heys.dating.message.MessageRepository;
 import com.heys.dating.message.MessageService;
 import com.heys.dating.message.MessageTransformer;
@@ -69,8 +69,8 @@ public class GoogleAppEngineConfig implements GoDatingTestingConfig {
 
 	@Override
 	@Bean
-	public MemberMessageRepository memberMessageRepository() {
-		return new MemberMessageRepositoryDatastoreImpl();
+	public MessageLeafRepository memberMessageRepository() {
+		return new MessageLeafRepositoryDatastoreImpl();
 	}
 
 	@Override
@@ -87,8 +87,8 @@ public class GoogleAppEngineConfig implements GoDatingTestingConfig {
 
 	@Override
 	@Bean
-	public MemberThreadRepository memberThreadRepository() {
-		return new MemberThreadRepositoryDatastoreImpl();
+	public ThreadLeafRepository memberThreadRepository() {
+		return new ThreadLeafRepositoryDatastoreImpl();
 	}
 
 	@Override

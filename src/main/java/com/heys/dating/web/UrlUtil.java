@@ -1,4 +1,4 @@
-package com.heys.dating.util;
+package com.heys.dating.web;
 
 import com.heys.dating.member.Gender;
 import com.heys.dating.picture.Picture;

@@ -23,14 +23,14 @@ import com.heys.dating.member.Member;
 public class Thread extends AbstractEntity {
 	private static final long serialVersionUID = -2070932576032105785L;
 
-	private String subject;
-
 	@Load
 	private List<Ref<Member>> activeParticipants;
+
 	@Load
 	private List<Ref<Message>> messages;
-
 	private Date startDate;
+
+	private String subject;
 
 	public Thread(final String subject,
 			final List<Ref<Member>> activeParticipants) {

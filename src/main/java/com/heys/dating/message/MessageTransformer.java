@@ -10,14 +10,14 @@ import com.heys.dating.message.dto.ThreadListDTO;
 public interface MessageTransformer {
 
 	ThreadDTO transformThread(final Thread thread,
-			final Iterable<MemberMessage> memberMessages,
+			final Iterable<MessageLeaf> memberMessages,
 			final Map<Key<Message>, Message> messageMap,
 			final Map<Key<Member>, Member> memberMap,
 			final Map<Key<Member>, String> profileMap,
 			final Map<Key<Member>, Long> pictureMap);
 
 	ThreadListDTO transformThreadList(
-			final Iterable<MemberThread> memberThreads,
+			final Iterable<ThreadLeaf> memberThreads,
 			final Map<Key<Thread>, Thread> threadMap,
 			final Map<Key<Message>, Message> messageMap,
 			final Map<Key<Member>, Member> senderMap);

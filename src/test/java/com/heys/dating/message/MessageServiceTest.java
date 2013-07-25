@@ -14,9 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.google.appengine.labs.repackaged.com.google.common.collect.Lists;
 import com.heys.dating.member.Member;
-import com.heys.dating.message.Message;
-import com.heys.dating.message.MessageService;
-import com.heys.dating.message.Thread;
 import com.heys.dating.message.dto.MessageDTO;
 import com.heys.dating.message.dto.ParticipantDTO;
 import com.heys.dating.message.dto.ThreadDTO;
@@ -27,6 +24,8 @@ import com.heys.dating.util.DatastoreUtil;
 
 public class MessageServiceTest extends MemberTest {
 
+	@Autowired
+	private BlacklistService blacklistSvc;
 	@Autowired
 	private MessageService messageSvc;
 

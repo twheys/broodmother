@@ -24,30 +24,30 @@ import com.heys.dating.member.Member;
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class MemberThread extends AbstractEntity {
-	static class IfNotDeleted extends PojoIf<MemberThread> {
+public class ThreadLeaf extends AbstractEntity {
+	protected static class IfNotDeleted extends PojoIf<ThreadLeaf> {
 		@Override
-		public boolean matchesPojo(final MemberThread pojo) {
+		public boolean matchesPojo(final ThreadLeaf pojo) {
 			return pojo.deleteDate == null;
 		}
 	}
 
 	private static final long serialVersionUID = -4131943578081886824L;
 
+	Date deleteDate;
+	Key<Message> lastMessage;
 	@Index(IfNotDeleted.class)
-	Key<Thread> thread;
+	Date lastUpdate;
+	@Load
+	final List<Ref<MessageLeaf>> messages = Lists.newArrayList();
 	@Parent
 	@Index(IfNotDeleted.class)
 	Key<Member> owner;
-	Key<Message> lastMessage;
-	@Load
-	final List<Ref<MemberMessage>> messages = Lists.newArrayList();
 	@Index(IfNotDeleted.class)
-	Date lastUpdate;
-	Date deleteDate;
+	Key<Thread> thread;
 	boolean unread;
 
-	public MemberThread(final Key<Member> owner, final Key<Thread> thread) {
+	public ThreadLeaf(final Key<Member> owner, final Key<Thread> thread) {
 		this.owner = owner;
 		this.thread = thread;
 	}

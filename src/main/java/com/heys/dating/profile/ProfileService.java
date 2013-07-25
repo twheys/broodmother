@@ -18,8 +18,6 @@ public interface ProfileService {
 			final List<Gender> partnerGender, final Integer partnerAgeMin,
 			final Integer partnerAgeMax);
 
-	Profile getProfileForMember(final Member member);
-
 	Profile getProfileForVanity(final String vanity) throws NotFoundException;
 
 	Profile updateProfileContent(final Member member, final String description)

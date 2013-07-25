@@ -1,6 +1,7 @@
 package com.heys.dating.impl.gae.repository;
 
-import org.apache.commons.lang.StringUtils;
+import static com.heys.dating.util.DatastoreUtil.c;
+
 import org.springframework.stereotype.Repository;
 
 import com.heys.dating.member.Member;
@@ -22,7 +23,6 @@ public class ProfileRepositoryDatastoreImpl extends
 
 	@Override
 	public Profile findByVanity(final String vanity) {
-		return load().filter("vanity", StringUtils.lowerCase(vanity)).first()
-				.now();
+		return load().filter("vanity", c(vanity)).first().now();
 	}
 }

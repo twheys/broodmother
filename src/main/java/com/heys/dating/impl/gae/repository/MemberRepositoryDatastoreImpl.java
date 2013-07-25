@@ -1,8 +1,9 @@
 package com.heys.dating.impl.gae.repository;
 
+import static com.heys.dating.util.DatastoreUtil.c;
+
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Repository;
 
 import com.google.common.base.Function;
@@ -20,8 +21,7 @@ public class MemberRepositoryDatastoreImpl extends
 
 	@Override
 	public Member findByEmail(final String email) {
-		return load().filter("emailIgnoreCase", StringUtils.upperCase(email))
-				.first().now();
+		return load().filter("emailIgnoreCase", c(email)).first().now();
 	}
 
 	@Override
@@ -30,14 +30,13 @@ public class MemberRepositoryDatastoreImpl extends
 				Lists.transform(logins, new Function<String, String>() {
 					@Override
 					public String apply(final String login) {
-						return StringUtils.upperCase(login);
+						return c(login);
 					}
 				})).list();
 	}
 
 	@Override
 	public Member findByLogin(final String login) {
-		return load().filter("loginIgnoreCase", StringUtils.upperCase(login))
-				.first().now();
+		return load().filter("loginIgnoreCase", c(login)).first().now();
 	}
 }

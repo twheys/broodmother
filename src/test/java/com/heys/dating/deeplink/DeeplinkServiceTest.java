@@ -2,7 +2,6 @@ package com.heys.dating.deeplink;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +41,6 @@ public class DeeplinkServiceTest extends MemberTest {
 				new DateTime().minusDays(1).toDate());
 		Thread.sleep(100L);
 		deeplinkSvc.parse(deeplinkValue);
-		fail();
 	}
 
 	@Test(expected = InvalidDeeplinkException.class)
@@ -57,7 +55,6 @@ public class DeeplinkServiceTest extends MemberTest {
 		final Deeplink deeplink = deeplinkSvc.parse(deeplinkValue);
 		assertNotNull(deeplink);
 		deeplinkSvc.parse(deeplinkValue);
-		fail();
 	}
 
 }

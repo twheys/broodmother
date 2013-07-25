@@ -18,11 +18,11 @@ import com.heys.dating.member.FileType;
 public class Picture extends AbstractEntity {
 	private static final long serialVersionUID = 8418671229417665202L;
 
-	private ShortBlob full;
-	private ShortBlob preview;
-	private ShortBlob icon;
 	private String description;
-	private PictureType type;
 	private FileType fileType;
+	private ShortBlob full;
+	private ShortBlob icon;
+	private ShortBlob preview;
 	private PictureStatus state;
+	private PictureType type;
 }

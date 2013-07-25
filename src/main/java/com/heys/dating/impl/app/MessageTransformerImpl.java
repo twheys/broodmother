@@ -10,8 +10,8 @@ import com.google.appengine.labs.repackaged.com.google.common.collect.Lists;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.Ref;
 import com.heys.dating.member.Member;
-import com.heys.dating.message.MemberMessage;
-import com.heys.dating.message.MemberThread;
+import com.heys.dating.message.MessageLeaf;
+import com.heys.dating.message.ThreadLeaf;
 import com.heys.dating.message.Message;
 import com.heys.dating.message.MessageTransformer;
 import com.heys.dating.message.Thread;
@@ -26,7 +26,7 @@ public class MessageTransformerImpl implements MessageTransformer {
 
 	@Override
 	public ThreadDTO transformThread(final Thread thread,
-			final Iterable<MemberMessage> memberMessages,
+			final Iterable<MessageLeaf> memberMessages,
 			final Map<Key<Message>, Message> messageMap,
 			final Map<Key<Member>, Member> memberMap,
 			final Map<Key<Member>, String> profileMap,
@@ -45,7 +45,7 @@ public class MessageTransformerImpl implements MessageTransformer {
 					pictureId));
 		}
 		final List<MessageDTO> messages = Lists.newArrayList();
-		for (final MemberMessage memberMessage : memberMessages) {
+		for (final MessageLeaf memberMessage : memberMessages) {
 			final Message message = messageMap.get(memberMessage.getMessage());
 			final Long participantId = memberMap.get(message.getSender())
 					.getId();
@@ -61,12 +61,12 @@ public class MessageTransformerImpl implements MessageTransformer {
 
 	@Override
 	public ThreadListDTO transformThreadList(
-			final Iterable<MemberThread> memberThreads,
+			final Iterable<ThreadLeaf> memberThreads,
 			final Map<Key<Thread>, Thread> threadMap,
 			final Map<Key<Message>, Message> messageMap,
 			final Map<Key<Member>, Member> senderMap) {
 		final List<ThreadPreviewDTO> threadPreviews = Lists.newArrayList();
-		for (final MemberThread memberThread : memberThreads) {
+		for (final ThreadLeaf memberThread : memberThreads) {
 			final ThreadPreviewDTO threadPreviewDto = new ThreadPreviewDTO();
 			threadPreviews.add(threadPreviewDto);
 

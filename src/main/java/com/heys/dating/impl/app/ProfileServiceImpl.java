@@ -61,19 +61,19 @@ public class ProfileServiceImpl implements ProfileService {
 		return profileRepository.save(profile);
 	}
 
-	@Override
-	public Profile getProfileForMember(final Member member) {
-		log.info("Retrieving profile for owner. :: " + member.getLogin());
-		final Profile profile = profileRepository.findByOwner(member);
-
-		log.info("Profile :: " + profile);
-
-		if (null == profile)
-			throw new RuntimeException("Profile not initialized for member "
-					+ member.getLogin() + "?");
-
-		return profile;
-	}
+	// @Override
+	// public Profile getProfileForMember(final Member member) {
+	// log.info("Retrieving profile for owner. :: " + member.getLogin());
+	// final Profile profile = profileRepository.findByOwner(member);
+	//
+	// log.info("Profile :: " + profile);
+	//
+	// if (null == profile)
+	// throw new RuntimeException("Profile not initialized for member "
+	// + member.getLogin() + "?");
+	//
+	// return profile;
+	// }
 
 	@Override
 	public Profile getProfileForVanity(final String vanity)
@@ -91,7 +91,7 @@ public class ProfileServiceImpl implements ProfileService {
 	@Override
 	public Profile updateProfileContent(final Member member,
 			final String description) throws ConstraintViolationException {
-		final Profile profile = getProfileForMember(member);
+		final Profile profile = member.getProfile().get();
 		profile.setDescription(description);
 
 		return profileRepository.save(profile);
@@ -104,7 +104,7 @@ public class ProfileServiceImpl implements ProfileService {
 			final Integer partnerAgeMin, final Integer partnerAgeMax,
 			final List<String> partnerGenders)
 			throws ConstraintViolationException {
-		final Profile profile = getProfileForMember(member);
+		final Profile profile = member.getProfile().get();
 		final RelationshipStatus vStatus = EnumUtils.toEnum(status,
 				RelationshipStatus.INVALID_VALUE);
 		final Gender vGender = EnumUtils.toEnum(gender, Gender.INVALID_VALUE);
