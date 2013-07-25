@@ -2,8 +2,8 @@ package com.heys.dating.web.dto;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-import com.heys.dating.domain.member.FileType;
-import com.heys.dating.domain.member.Picture;
+import com.heys.dating.member.FileType;
+import com.heys.dating.picture.Picture;
 
 @XmlRootElement(name = "picture")
 public class PictureDTO {

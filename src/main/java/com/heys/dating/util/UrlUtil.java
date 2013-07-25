@@ -1,7 +1,7 @@
 package com.heys.dating.util;
 
-import com.heys.dating.domain.member.Gender;
-import com.heys.dating.domain.member.Picture;
+import com.heys.dating.member.Gender;
+import com.heys.dating.picture.Picture;
 
 public class UrlUtil {
 

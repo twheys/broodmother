@@ -5,9 +5,9 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.heys.dating.util.SecurityUtils;
 import com.heys.dating.web.LandingController;
 import com.heys.dating.web.dto.Registration;
+import com.heys.dating.web.util.SecurityUtils;
 
 @Controller
 public class LandingControllerImpl implements LandingController {

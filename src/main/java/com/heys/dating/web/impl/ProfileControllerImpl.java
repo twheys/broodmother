@@ -16,19 +16,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.googlecode.objectify.Key;
-import com.heys.dating.domain.member.Member;
-import com.heys.dating.domain.member.Profile;
-import com.heys.dating.manager.MemberManager;
-import com.heys.dating.manager.impl.NotFoundException;
-import com.heys.dating.util.SecurityUtils;
+import com.heys.dating.member.Member;
+import com.heys.dating.member.MemberService;
 import com.heys.dating.web.ProfileContent;
 import com.heys.dating.web.ProfileController;
 import com.heys.dating.web.ProfileDetails;
 import com.heys.dating.web.ProfilePicture;
 import com.heys.dating.web.ProfileUpdate;
-import com.heys.dating.web.exception.InternalServerException;
-import com.heys.dating.web.exception.ResourceNotFoundException;
+import com.heys.dating.web.util.SecurityUtils;
 
 @Controller("ProfileController")
 public class ProfileControllerImpl implements ProfileController {
@@ -36,7 +31,7 @@ public class ProfileControllerImpl implements ProfileController {
 			.getLogger(ProfileController.class);
 
 	@Autowired
-	private MemberManager memberService;
+	private MemberService memberService;
 
 	private ModelAndView createCreateProfileForm(final ProfileContent bean) {
 		return new ModelAndView("create-profile-content", "command", bean);
@@ -83,59 +78,62 @@ public class ProfileControllerImpl implements ProfileController {
 	@Override
 	@RequestMapping(value = "/profile/create", method = RequestMethod.GET)
 	public ModelAndView createProfile() {
-		try {
-			final Key<Member> memberKey = getAuthMemberKey();
-			final Profile profile = memberService.getProfileForMember(memberKey);
-			return renderViewForRegistratonStep(profile);
-		} catch (final NotFoundException e) {
-			throw new InternalServerException(e);
-		}
+		// try {
+		// final Key<Member> memberKey = getAuthMemberKey();
+		// final Profile profile = memberService.getProfileForMember(memberKey);
+		// return renderViewForRegistratonStep(profile);
+		// } catch (final NotFoundException e) {
+		// throw new InternalServerException(e);
+		// }
+		return null;
 	}
 
 	@Override
 	@RequestMapping(value = "/profile/create/step2", method = RequestMethod.POST)
 	public ModelAndView createProfile(final ProfileContent data,
 			final BindingResult result) {
-		logger.debug("Profile " + data.toString());
-		if (result.hasErrors()) {
-			logger.debug("Profile errors" + result.getAllErrors());
-			return createCreateProfileForm(data, result.getAllErrors());
-		}
-
-		try {
-			memberService.updateProfileContent(getAuthMemberKey(),
-					data.getDescription());
-
-			return new ModelAndView("redirect:/profile/create");
-		} catch (final NotFoundException e) {
-			throw new InternalServerException(e);
-		} catch (final ConstraintViolationException e) {
-			return createCreateProfileForm(data, e.getConstraintViolations());
-		}
+		// logger.debug("Profile " + data.toString());
+		// if (result.hasErrors()) {
+		// logger.debug("Profile errors" + result.getAllErrors());
+		// return createCreateProfileForm(data, result.getAllErrors());
+		// }
+		//
+		// try {
+		// memberService.updateProfileContent(getAuthMemberKey(),
+		// data.getDescription());
+		//
+		// return new ModelAndView("redirect:/profile/create");
+		// } catch (final NotFoundException e) {
+		// throw new InternalServerException(e);
+		// } catch (final ConstraintViolationException e) {
+		// return createCreateProfileForm(data, e.getConstraintViolations());
+		// }
+		return null;
 	}
 
 	@Override
 	@RequestMapping(value = "/profile/create/step1", method = RequestMethod.POST)
 	public ModelAndView createProfile(final ProfileDetails data,
 			final BindingResult result) {
-		logger.debug("Profile " + data.toString());
-		if (result.hasErrors()) {
-			logger.debug("Profile errors" + result.getAllErrors());
-			return createCreateProfileForm(data, result.getAllErrors());
-		}
-
-		try {
-			memberService.updateProfileDetails(getAuthMemberKey(),
-					data.getStatus(), data.getGender(), data.getZipCode(),
-					data.getPartnerAgeMin(), data.getPartnerAgeMax(),
-					data.getPartnerGenders());
-
-			return new ModelAndView("redirect:/profile/create");
-		} catch (final NotFoundException e) {
-			throw new InternalServerException(e);
-		} catch (final ConstraintViolationException e) {
-			return createCreateProfileForm(data, e.getConstraintViolations());
-		}
+		// logger.debug("Profile " + data.toString());
+		// if (result.hasErrors()) {
+		// logger.debug("Profile errors" + result.getAllErrors());
+		// return createCreateProfileForm(data, result.getAllErrors());
+		// }
+		//
+		// try {
+		// // memberService.updateProfileDetails(getAuthMemberKey(),
+		// // data.getStatus(), data.getGender(), data.getZipCode(),
+		// // data.getPartnerAgeMin(), data.getPartnerAgeMax(),
+		// // data.getPartnerGenders());
+		//
+		// return new ModelAndView("redirect:/profile/create");
+		// } catch (final NotFoundException e) {
+		// throw new InternalServerException(e);
+		// } catch (final ConstraintViolationException e) {
+		// return createCreateProfileForm(data, e.getConstraintViolations());
+		// }
+		return null;
 	}
 
 	@Override
@@ -161,37 +159,21 @@ public class ProfileControllerImpl implements ProfileController {
 		}
 	}
 
-	private Key<Member> getAuthMemberKey() {
-		return SecurityUtils.getCurrentUser().getMemberKey();
+	private Member getAuthMemberKey() {
+		return SecurityUtils.getCurrentUser().getMember();
 	}
 
 	@Override
 	public ModelAndView getProfile(final String vanity) {
-		final ModelAndView mav = new ModelAndView("profile");
-		try {
-			final Profile profile = memberService.getProfileForVanity(vanity);
-			mav.getModelMap().put("profile", profile);
-			return mav;
-		} catch (final NotFoundException e) {
-			throw new ResourceNotFoundException();
-		}
-	}
-
-	private ModelAndView renderViewForRegistratonStep(final Profile profile) {
-		switch (profile.getProfileCompletion()) {
-		case STEP1_MISSING_BASIC_DETAILS:
-			final ProfileDetails details = new ProfileDetails();
-			return createCreateProfileForm(details);
-		case STEP2_MISSING_PROFILE:
-			final ProfileContent content = new ProfileContent();
-			return createCreateProfileForm(content);
-		case STEP3_MISSING_PICTURE:
-			final ProfilePicture picture = new ProfilePicture();
-			return createCreateProfileForm(picture);
-		default:
-		case IGNORE:
-			return new ModelAndView("redirect:/dashboard");
-		}
+		// final ModelAndView mav = new ModelAndView("profile");
+		// try {
+		// final Profile profile = memberService.getProfileForVanity(vanity);
+		// mav.getModelMap().put("profile", profile);
+		// return mav;
+		// } catch (final NotFoundException e) {
+		// throw new ResourceNotFoundException();
+		// }
+		return null;
 	}
 
 }

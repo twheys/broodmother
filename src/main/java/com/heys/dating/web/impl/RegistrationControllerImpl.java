@@ -17,8 +17,8 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.appengine.repackaged.org.joda.time.DateMidnight;
-import com.heys.dating.domain.member.Member;
-import com.heys.dating.manager.MemberManager;
+import com.heys.dating.member.Member;
+import com.heys.dating.member.MemberService;
 import com.heys.dating.web.RegistrationController;
 import com.heys.dating.web.dto.Registration;
 
@@ -28,7 +28,7 @@ public class RegistrationControllerImpl implements RegistrationController {
 			.getLogger(RegistrationController.class);
 
 	@Autowired
-	private MemberManager memberService;
+	private MemberService memberService;
 
 	public RegistrationControllerImpl() {
 		logger.info("Starting Registration Controller");

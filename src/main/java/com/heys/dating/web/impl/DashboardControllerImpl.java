@@ -8,8 +8,8 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.heys.dating.manager.MemberManager;
-import com.heys.dating.manager.MessageManager;
+import com.heys.dating.member.MemberService;
+import com.heys.dating.message.MessageService;
 import com.heys.dating.web.DashboardController;
 
 @Controller("DashboardController")
@@ -18,10 +18,10 @@ public class DashboardControllerImpl implements DashboardController {
 			.getLogger(DashboardControllerImpl.class.getName());
 
 	@Autowired
-	private MemberManager memberManager;
+	private MemberService memberSvc;
 
 	@Autowired
-	private MessageManager messageManager;
+	private MessageService messageSvc;
 
 	@Override
 	@Secured("isAuthenticated() and hasRole('ROLE_USER')")
@@ -31,12 +31,6 @@ public class DashboardControllerImpl implements DashboardController {
 		final String login = principal.getName();
 		logger.info("Retrieving dashboard page for " + login);
 		mav.getModelMap().put("login", login);
-
-		// final Member member = memberManager.findByLoginOrEmail(login);
-		// final Collection<Thread> threads =
-		// messageManager.getNewThreadsForMember(member, 3,
-		// 0);
-		// mav.getModelMap().put("messages", threads);
 
 		return mav;
 	}
