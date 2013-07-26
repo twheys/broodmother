@@ -74,12 +74,14 @@ public class Member extends AbstractEntity {
 	private String password;
 	private Set<MemberRole> privileges = Sets.newHashSet();
 	private Ref<Profile> profile;
-	/**
-	 * Transient field that is used for validation.
-	 */
-	@Length(min = 6, max = 132, message = "length 6 132")
-	@Pattern(regexp = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).+$", message = "pattern")
-	private transient String rawPassword;
+
+	// /**
+	// * Transient field that is used for validation.
+	// */
+	// @Length(min = 6, max = 132, message = "length 6 132")
+	// @Pattern(regexp = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).+$", message =
+	// "pattern")
+	// private transient String rawPassword;
 
 	/**
 	 * Initialize member with basic properties.
@@ -114,6 +116,5 @@ public class Member extends AbstractEntity {
 		super.onSave();
 		loginIgnoreCase = c(login);
 		emailIgnoreCase = c(email);
-		rawPassword = null;
 	}
 }

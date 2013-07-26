@@ -37,7 +37,6 @@ public class MemberServiceTest extends MemberTest {
 		final Member member = longReg(registration);
 
 		assertEquals(registration.get(LOGIN), member.getLogin());
-		assertNull(member.getRawPassword());
 		assertNotNull(member.getPassword());
 		assertEquals(registration.get(EMAIL), member.getEmail());
 		assertEquals(((DateMidnight) registration.get(BIRTHDATE)).toDate(),
@@ -73,7 +72,6 @@ public class MemberServiceTest extends MemberTest {
 		final Member member = shortReg(registration);
 
 		assertEquals(registration.get(LOGIN), member.getLogin());
-		assertNull(member.getRawPassword());
 		assertNotNull(member.getPassword());
 		assertEquals(registration.get(EMAIL), member.getEmail());
 		assertEquals(((DateMidnight) registration.get(BIRTHDATE)).toDate(),

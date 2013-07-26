@@ -11,11 +11,11 @@ public interface MemberService {
 
 	Member findByLoginOrEmail(final String identifier);
 
-	Member register(final String login, final String password,
+	Member register(final String login, final String encodedPassword,
 			final String email, final DateMidnight birthdate,
 			final Locale locale) throws ConstraintViolationException;
 
-	Member register(final String login, final String password,
+	Member register(final String login, final String encodedPassword,
 			final String email, final DateMidnight birthdate,
 			final String zipCode, final Locale locale, final Gender gender,
 			final List<Gender> partnerGender, final Integer partnerAgeMin,

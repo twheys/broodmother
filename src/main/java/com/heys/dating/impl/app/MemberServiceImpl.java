@@ -21,7 +21,6 @@ import com.heys.dating.member.MemberService;
 import com.heys.dating.picture.PictureService;
 import com.heys.dating.profile.Profile;
 import com.heys.dating.profile.ProfileService;
-import com.heys.dating.web.security.DatingUserDetails;
 
 @Service("MemberService")
 @Slf4j
@@ -30,34 +29,25 @@ public class MemberServiceImpl implements MemberService {
 	private MemberRepository memberRepository;
 
 	@Autowired
-	private ProfileService profileService;
-
-	@Autowired
 	private PasswordEncoder passwordEncoder;
-
-	@Autowired
-	private SaltSource saltSource;
 
 	@Autowired
 	private PictureService pictureService;
 
-	private String createAuthentication(final Member member,
-			final String password) {
-		final DatingUserDetails principle = new DatingUserDetails(member);
-		final Object salt = saltSource.getSalt(principle);
-		final String encodePassword = passwordEncoder.encodePassword(password,
-				salt);
-		return encodePassword;
-	}
+	@Autowired
+	private ProfileService profileService;
+
+	@Autowired
+	private SaltSource saltSource;
 
 	private Member createMember(final String login, final String email,
-			final String password, final DateMidnight birthdate,
+			final String encodedPassword, final DateMidnight birthdate,
 			final Locale locale) {
 		log.debug("Initializing member account. :: " + login);
-		final Member member = initAccount(login, email, password, birthdate,
-				locale);
-		final String authentication = createAuthentication(member, password);
-		member.setPassword(authentication);
+		final Member member = new Member(login, email, birthdate.toDate(),
+				locale.toString());
+		member.setPassword(encodedPassword);
+		memberRepository.validate(member);
 
 		memberRepository.validate(member);
 		log.info("Member account created. :: " + login);
@@ -76,17 +66,6 @@ public class MemberServiceImpl implements MemberService {
 			return member;
 
 		return memberRepository.findByEmail(identifier);
-	}
-
-	private Member initAccount(final String login, final String email,
-			final String password, final DateMidnight birthdate,
-			final Locale locale) {
-		final Member member = new Member(login, email, birthdate.toDate(),
-				locale.toString());
-		member.setPassword(password);
-		member.setRawPassword(password);
-		memberRepository.validate(member);
-		return member;
 	}
 
 	@Override
