@@ -1,7 +1,0 @@
-<!--Change the total storage limit for all queues to 50MB-->
-<queue-entries>
-  <total-storage-limit>50M</total-storage-limit>
-  <queue>
-    ...
-  </queue>
-</queue-entries>
