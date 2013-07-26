@@ -1,0 +1,50 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring3-3.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:tiles="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org">
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<title tiles:string="title">Dating Title</title>
+
+<link rel="stylesheet" type="text/css" media="all" href="../../../static/css/style.css" />
+
+<link rel="stylesheet" type="text/css" media="all" href="../../../static/css/960/reset.css" />
+<link rel="stylesheet" type="text/css" media="all" href="../../../static/css/960/text.css" />
+<link rel="stylesheet" type="text/css" media="all" href="../../../static/css/960/960.css" />
+
+</head>
+
+
+<body tiles:fragment="content" class="row-fluid">
+	
+	<article class="span4 features_text">
+		<img id="logo" class="seo-img" src="./../../static/content/seo1.png" th:src="@{/r/content/seo1.png}" alt="blah blah"/>
+		<h4 th:text="#{seo.label.header1}">Blah blah</h4>
+		<p th:text="#{seo.label.text1}">
+		   Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+		 </p>
+	</article>
+	
+	<article class="span4 features_text">
+		<img id="logo" class="seo-img" src="./../../static/content/seo2.png" th:src="@{/r/content/seo2.png}" alt="blah blah"/>
+		<h4 th:text="#{seo.label.header2}">More blah blahs</h4>
+		<p th:text="#{seo.label.text2}">
+		    At vero eos et accusam et justo duo dolores et ea rebum. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren.
+		 </p>
+	</article>
+	
+	<article class="span4 features_text">
+		<img id="logo" class="seo-img" src="./../../static/content/seo3.png" th:src="@{/r/content/seo3.png}" alt="blah blah"/>
+		<h4 th:text="#{seo.label.header3}">Even more blah blahs</h4>
+		<p th:text="#{seo.label.text3}">
+		   Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. At vero eos et accusam et justo duo dolores et ea rebum. 
+		 </p>
+	</article>
+	
+</body>
+
+</html>

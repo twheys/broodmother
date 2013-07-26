@@ -1,0 +1,20 @@
+with the dashboard page, I'd like to get rid of the giant header, have a smaller version of the logo on the very top purple bar, keep the messages icon but I think we should remove the "friends" icon.
+Content on the dashboard:
+Column 1 (width: 220px) Top to bottom
+Profile Preview: small picture with username
+Connections: shows a preview of appox. three messages, cutting running text off
+Tips#1: contains some arbitrary info text
+Ad#1: Contains an image advertisement
+Column 2 (width 700px, 20px space from column 1) Top to bottom
+Navigation: Left to Right, leave these labels unnamed
+Search: Search bar, like in dash. no language button, advanced search option below textbox aligned on the right, which will expand the height of this box when clicked revealing more options (don't need to show that in design)
+Adx2: Small horizontal bar image ad, approx 72px height
+Recommendations: [Fieldset with label] Grid of recommended users, 3 columns, 2 rows. Each user includes a picture (approx. 100x130), their username, and some room for a text description
+Visitors: [Fieldset with label] Same as recommendations, except lists users that recently visited your profile.  Only difference in appearence is instead of text description, use that space for some possible icon images (32x32)
+Tipsx2: Panel that contains arbitrary information
+
+
+
+
+one thing about the dashboard is i dont want it to look like the profile page, so no big profile picture or something on it 01:55:28 PM
+it should be orientated towards the user using the site's features

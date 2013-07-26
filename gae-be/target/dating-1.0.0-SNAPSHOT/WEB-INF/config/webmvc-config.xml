@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+
+	<!-- Enables controllers mapped with @RequestMapping annotations, formatting annotations @NumberFormat @DateTimeFormat, and JSR 303 style validation -->
+	<mvc:annotation-driven/>
+
+	<mvc:resources mapping="/r/**" location="/static/" cache-period="0"/>
+	<mvc:default-servlet-handler />
+
+	<!-- Map paths directly to view names without controller processing. Use the view-name attribute if necessary: by convention the view name equals the path without the leading slash -->
+	<mvc:view-controller path="/" view-name="landing_default" />
+	<mvc:view-controller path="/service" view-name="service" />
+	<mvc:view-controller path="/about" view-name="about" />
+	<mvc:view-controller path="/privacy" view-name="privacy" />
+	<mvc:view-controller path="/terms" view-name="terms" />
+	<mvc:view-controller path="/help" view-name="help" />
+	<mvc:view-controller path="/contact" view-name="contact" />
+	<mvc:view-controller path="/jobs" view-name="jobs" />
+
+
+	<!-- i18n Configuration -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/*" />
+			<bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+			    <property name="paramName" value="lang"/>
+			</bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
+	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+	    <property name="defaultLocale" value="en_EN"/>
+	    <property name="cookieName" value="locale"/>
+	    <property name="cookieMaxAge" value="100000"/>
+	</bean>
+	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+	    <property name="basenames">
+	        <list>
+	            <value>classpath:dating_messages</value>
+	            <value>classpath:site_messages</value>
+	        </list>
+	    </property>
+	    <property name="defaultEncoding" value="UTF-8"/>
+	</bean>
+		
+	<!-- Thymeleaf template resolver -->
+	<bean id="templateResolver" class="org.thymeleaf.templateresolver.ServletContextTemplateResolver">
+		<property name="prefix" value="/WEB-INF/"/>
+<!-- 		<property name="suffix" value=".html" /> -->
+		<property name="templateMode" value="HTML5"/>
+		<property name="cacheable" value="true"/>
+	</bean>
+
+	<!-- Thymeleaf Template Engine -->
+    <bean id="templateEngine" class="org.thymeleaf.spring3.SpringTemplateEngine">
+        <property name="templateResolver" ref="templateResolver" />
+        <property name="additionalDialects">
+            <set>
+                <bean class="org.thymeleaf.extras.tiles2.dialect.TilesDialect"/>
+                <bean class="org.thymeleaf.extras.springsecurity3.dialect.SpringSecurityDialect"/>
+				<!-- <bean class="org.thymeleaf.extras.conditionalcomments.dialect.ConditionalCommentsDialect"/> -->
+            </set>
+        </property>
+    </bean>
+
+	<!-- Resolves logical view names returned by Controllers to Tiles; a view name to resolve is treated as the name of a tiles definition -->
+	<bean id="tilesViewResolver" class="org.thymeleaf.spring3.view.AjaxThymeleafViewResolver">
+		<property name="viewClass" value="org.thymeleaf.extras.tiles2.spring.web.view.FlowAjaxThymeleafTilesView"/>
+		<property name="templateEngine" ref="templateEngine"/>
+	</bean>
+  
+	<!-- Configures the Tiles layout system using a specific thymeleaf-enabled Tiles Configurer -->
+	<bean id="tilesConfigurer" class="org.thymeleaf.extras.tiles2.spring.web.configurer.ThymeleafTilesConfigurer">
+		<property name="definitions">
+			<list>
+				<value>/WEB-INF/**/views.xml</value>
+			</list>
+		</property>
+	</bean>
+  	
+  	<!-- Multipart Resolver -->
+  	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+  		<property name="maxUploadSize" value="5242880"/>
+  	</bean>
+</beans>

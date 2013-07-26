@@ -1,0 +1,65 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring3-3.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:tiles="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org">
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<title tiles:string="title">Dating Title</title>
+
+<link rel="stylesheet" type="text/css" media="all"
+	th:href="@{/r/css/main.css}" />
+<link rel="stylesheet" type="text/css" media="all"
+	th:href="@{/r/css/dating.css}" />
+
+<link rel="stylesheet" type="text/css" media="all"
+	th:href="@{/r/css/reset.css}" />
+<link rel="stylesheet" type="text/css" media="all"
+	th:href="@{/r/css/bootstrap/css/bootstrap.css}" />
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+
+</head>
+
+<body>
+
+	<div class="header">
+
+		<div class="row">
+			<header class="span3">
+				<a th:href="@{/}" href="#"> <img id="logo" class="logo-small"
+					src="#" th:src="@{/r/logo/logo.png}" alt="logo" />
+				</a>
+			</header>
+
+			<header tiles:include="header.language" class="offset6 span3"></header>
+		</div>
+
+	</div>
+
+
+
+	<div class="content">
+
+		<div class="row">
+			<section tiles:include="content"></section>
+		</div>
+
+	</div>
+
+
+
+	<div class="footer">
+
+		<div class="row">
+			<footer tiles:include="footer" class="span12"></footer>
+		</div>
+
+	</div>
+
+</body>
+
+</html>

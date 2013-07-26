@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+    "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+    "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+ 
+<tiles-definitions>
+
+	<definition name="landing" extends="landingLayout">
+        <put-attribute name="title" value="Dating Landing" type="string" />
+        
+		<put-attribute name="header.login" value="html/member/login-small.html :: content" type="thymeleaf"/>
+		<put-attribute name="header.language" value="html/header/language.html :: content" type="thymeleaf"/>
+		<put-attribute name="header.logo" value="html/landing/logo1.html :: content" type="thymeleaf"/>
+		<put-attribute name="header.search" value="html/widget/search.html :: content" type="thymeleaf"/>
+        
+		<put-attribute name="story1">
+			<definition template="html/landing/intro.html :: content" templateType="thymeleaf">
+				<put-attribute name="registration" value="html/member/register.html :: content" type="thymeleaf"/>
+			</definition>
+		</put-attribute>
+		<put-attribute name="story2" value="html/landing/seo.html :: content" type="thymeleaf"/>
+		<put-attribute name="footer" value="html/footer/landing.html :: content" type="thymeleaf"/>
+	</definition>
+	
+</tiles-definitions>

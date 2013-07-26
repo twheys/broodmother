@@ -1,0 +1,39 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring3-3.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:tiles="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org" lang="en">
+
+
+<head>
+
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	
+	<link rel="stylesheet" type="text/css" media="all" th:href="@{/r/css/main.css}" href="../../../static/css/main.css"/>
+	<link rel="stylesheet" type="text/css" media="all" th:href="@{/r/css/dating.css}"  href="../../../static/css/dating.css"/>
+	
+	<link rel="stylesheet" type="text/css" media="all" th:href="@{/r/css/960/reset.css}"  href="../../../static/css/960/reset.css"/>
+	<link rel="stylesheet" type="text/css" media="all" th:href="@{/r/css/960/text.css}"  href="../../../static/css/960/text.css"/>
+	<link rel="stylesheet" type="text/css" media="all" th:href="@{/r/css/960/960.css}"  href="../../../static/css/960/960.css"/>
+
+</head>
+
+
+<body tiles:fragment="content">
+
+	<div id="language_select">
+		<span class="language_label" th:text="#{language.text.select}">Language</span>
+			:&nbsp;&nbsp;
+		<span class="language_label" th:text="#{language.text.value}">English</span>
+		<ul class="language_options">
+			<li><a href="?lang=en" class="selector en" th:text="#{static.language.en}">English</a></li>
+			<li><a href="?lang=es" class="selector es" th:text="#{static.language.es}">Español</a></li>
+			<li><a href="?lang=fr" class="selector fr" th:text="#{static.language.fr}">Fraçois</a></li>
+			<li><a href="?lang=de" class="selector de" th:text="#{static.language.de}">Deutsch</a></li>
+			<li><a href="?lang=it" class="selector it" th:text="#{static.language.it}">Italia</a></li>
+		</ul>
+	</div>
+
+</body>
+
+</html>

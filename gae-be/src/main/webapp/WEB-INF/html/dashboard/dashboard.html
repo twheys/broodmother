@@ -1,0 +1,40 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring3-3.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:tiles="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org"
+      lang="en">
+
+<head>
+
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+</head>
+
+
+<body tiles:fragment="content">
+
+<section class="grid_4">
+	<div tiles:include="profile"></div>
+	<div tiles:include="messages"></div>
+	<div tiles:include="side.tips"></div>
+	<div>
+		<img th:src="@{/r/ad/side_ad.png}" src="" id="side_ad"/>
+	</div>
+</section>
+
+<section class="grid_12">
+	<div tiles:include="search" class="search_panel"></div>
+	<div>
+		<img th:src="@{/r/ad/content_ad.png}" src="#" id="content_ad"/>
+	</div>
+	<div tiles:include="overview"></div>
+	<div tiles:include="connections"></div>
+	<div tiles:include="recommended"></div>
+	<div tiles:include="visits"></div>
+	<div tiles:include="footer.tips"></div>
+</section>
+	
+</body>
+
+</html>
