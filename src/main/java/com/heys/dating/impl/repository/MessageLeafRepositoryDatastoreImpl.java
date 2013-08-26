@@ -1,4 +1,4 @@
-package com.heys.dating.impl.gae.repository;
+package com.heys.dating.impl.repository;
 
 import org.springframework.stereotype.Repository;
 
@@ -14,6 +14,11 @@ public class MessageLeafRepositoryDatastoreImpl extends
 
 	public MessageLeafRepositoryDatastoreImpl() {
 		super(MessageLeaf.class);
+	}
+
+	@Override
+	public int countUnreadByOwner(final Member owner) {
+		return load().ancestor(owner).filter("readTimestamp", null).count();
 	}
 
 	@Override

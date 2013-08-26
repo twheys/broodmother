@@ -6,6 +6,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import javax.validation.constraints.NotNull;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -64,6 +66,9 @@ public class MessageServiceImpl implements MessageService {
 		final MessageLeaf memberMessage = new MessageLeaf(
 				Key.create(recipient), Key.create(thread), Key.create(message),
 				message.getSentTimestamp());
+		if (message.getSender().equals(Key.create(recipient))) {
+			memberMessage.setReadTimestamp(new Date());
+		}
 		return messageLeafRepository.validateAndSave(memberMessage);
 	}
 
@@ -165,6 +170,11 @@ public class MessageServiceImpl implements MessageService {
 	}
 
 	@Override
+	public int getUnreadCount(@NotNull final Member member) {
+		return messageLeafRepository.countUnreadByOwner(member);
+	}
+
+	@Override
 	public Message send(final Member sender, final List<Member> recipients,
 			final String text) {
 		return send(sender, recipients, null, text);
@@ -214,7 +224,7 @@ public class MessageServiceImpl implements MessageService {
 
 		memberThread.setLastMessage(Key.create(message));
 		memberThread.setLastUpdate(new Date());
-		memberThread.setUnread(true);
+		memberThread.setUnread(null == memberMessage.getReadTimestamp());
 		memberThread.getMessages().add(Ref.create(memberMessage));
 		threadLeafRepository.save(memberThread);
 	}

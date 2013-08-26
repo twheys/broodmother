@@ -1,10 +1,13 @@
-package com.heys.dating.impl.gae.repository;
+package com.heys.dating.impl.repository;
+
+import org.springframework.stereotype.Repository;
 
 import com.heys.dating.member.Member;
 import com.heys.dating.message.Thread;
 import com.heys.dating.message.ThreadLeaf;
 import com.heys.dating.message.ThreadLeafRepository;
 
+@Repository
 public class ThreadLeafRepositoryDatastoreImpl extends
 		AbstractDatastoreRepository<ThreadLeaf> implements ThreadLeafRepository {
 

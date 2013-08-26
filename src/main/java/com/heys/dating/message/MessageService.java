@@ -39,4 +39,6 @@ public interface MessageService {
 
 	void sendAsync(@NotNull final Member recipient,
 			@NotNull final Thread thread, @NotNull final Message message);
+
+	int getUnreadCount(@NotNull final Member member);
 }

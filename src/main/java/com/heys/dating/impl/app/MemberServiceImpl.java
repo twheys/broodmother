@@ -8,8 +8,6 @@ import javax.validation.ValidationException;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.dao.SaltSource;
-import org.springframework.security.authentication.encoding.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.google.appengine.repackaged.org.joda.time.DateMidnight;
@@ -29,16 +27,10 @@ public class MemberServiceImpl implements MemberService {
 	private MemberRepository memberRepository;
 
 	@Autowired
-	private PasswordEncoder passwordEncoder;
-
-	@Autowired
 	private PictureService pictureService;
 
 	@Autowired
 	private ProfileService profileService;
-
-	@Autowired
-	private SaltSource saltSource;
 
 	private Member createMember(final String login, final String email,
 			final String encodedPassword, final DateMidnight birthdate,

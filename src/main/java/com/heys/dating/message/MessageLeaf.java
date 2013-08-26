@@ -26,6 +26,7 @@ public class MessageLeaf extends AbstractEntity {
 	@Parent
 	@Index
 	Key<Member> owner;
+	@Index
 	Date readTimestamp;
 	@Index
 	Date sentTimestamp;

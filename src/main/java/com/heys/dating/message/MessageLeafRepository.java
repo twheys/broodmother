@@ -9,4 +9,6 @@ public interface MessageLeafRepository extends Repository<MessageLeaf> {
 			final Thread thread, final int limit, final int offset,
 			final String sort);
 
+	int countUnreadByOwner(final Member member);
+
 }

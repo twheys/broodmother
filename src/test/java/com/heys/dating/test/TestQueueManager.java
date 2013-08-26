@@ -15,7 +15,7 @@ import com.heys.dating.message.ThreadRepository;
 import com.heys.dating.service.QueueManager;
 
 @NoArgsConstructor
-public class TestQueueService implements QueueManager {
+public class TestQueueManager implements QueueManager {
 
 	@Autowired
 	private MessageService messageService;

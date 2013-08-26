@@ -8,7 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.heys.dating.impl.app.BlacklistServiceImpl;
-import com.heys.dating.impl.gae.repository.BlacklistRepositoryDatastoreImpl;
+import com.heys.dating.impl.repository.BlacklistRepositoryDatastoreImpl;
 import com.heys.dating.message.BlacklistRepository;
 import com.heys.dating.message.BlacklistService;
 import com.heys.dating.test.GaeTest;

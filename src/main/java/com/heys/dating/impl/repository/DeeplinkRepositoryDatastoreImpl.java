@@ -1,4 +1,4 @@
-package com.heys.dating.impl.gae.repository;
+package com.heys.dating.impl.repository;
 
 import org.springframework.stereotype.Repository;
 

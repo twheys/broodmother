@@ -26,6 +26,7 @@ public class MessageServiceTest extends MemberTest {
 
 	@Autowired
 	private BlacklistService blacklistSvc;
+
 	@Autowired
 	private MessageService messageSvc;
 

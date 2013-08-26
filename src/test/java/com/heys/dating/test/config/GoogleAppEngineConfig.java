@@ -2,8 +2,6 @@ package com.heys.dating.test.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.dao.ReflectionSaltSource;
-import org.springframework.security.authentication.encoding.PlaintextPasswordEncoder;
 
 import com.heys.dating.deeplink.DeeplinkRepository;
 import com.heys.dating.deeplink.DeeplinkService;
@@ -15,30 +13,30 @@ import com.heys.dating.impl.app.MessageTransformerImpl;
 import com.heys.dating.impl.app.PictureServiceImpl;
 import com.heys.dating.impl.app.ProfileServiceImpl;
 import com.heys.dating.impl.gae.SearchManagerAppEngineImpl;
-import com.heys.dating.impl.gae.repository.BlacklistRepositoryDatastoreImpl;
-import com.heys.dating.impl.gae.repository.DeeplinkRepositoryDatastoreImpl;
-import com.heys.dating.impl.gae.repository.MessageLeafRepositoryDatastoreImpl;
-import com.heys.dating.impl.gae.repository.MemberRepositoryDatastoreImpl;
-import com.heys.dating.impl.gae.repository.ThreadLeafRepositoryDatastoreImpl;
-import com.heys.dating.impl.gae.repository.MessageRepositoryDatastoreImpl;
-import com.heys.dating.impl.gae.repository.ProfileRepositoryDatastoreImpl;
-import com.heys.dating.impl.gae.repository.ThreadRepositoryDatastoreImpl;
+import com.heys.dating.impl.repository.BlacklistRepositoryDatastoreImpl;
+import com.heys.dating.impl.repository.DeeplinkRepositoryDatastoreImpl;
+import com.heys.dating.impl.repository.MemberRepositoryDatastoreImpl;
+import com.heys.dating.impl.repository.MessageLeafRepositoryDatastoreImpl;
+import com.heys.dating.impl.repository.MessageRepositoryDatastoreImpl;
+import com.heys.dating.impl.repository.ProfileRepositoryDatastoreImpl;
+import com.heys.dating.impl.repository.ThreadLeafRepositoryDatastoreImpl;
+import com.heys.dating.impl.repository.ThreadRepositoryDatastoreImpl;
 import com.heys.dating.member.MemberRepository;
 import com.heys.dating.member.MemberService;
 import com.heys.dating.message.BlacklistRepository;
 import com.heys.dating.message.BlacklistService;
 import com.heys.dating.message.MessageLeafRepository;
-import com.heys.dating.message.ThreadLeafRepository;
 import com.heys.dating.message.MessageRepository;
 import com.heys.dating.message.MessageService;
 import com.heys.dating.message.MessageTransformer;
+import com.heys.dating.message.ThreadLeafRepository;
 import com.heys.dating.message.ThreadRepository;
 import com.heys.dating.picture.PictureService;
 import com.heys.dating.profile.ProfileRepository;
 import com.heys.dating.profile.ProfileService;
 import com.heys.dating.service.QueueManager;
 import com.heys.dating.service.SearchManager;
-import com.heys.dating.test.TestQueueService;
+import com.heys.dating.test.TestQueueManager;
 
 @Configuration
 public class GoogleAppEngineConfig implements GoDatingTestingConfig {
@@ -111,12 +109,6 @@ public class GoogleAppEngineConfig implements GoDatingTestingConfig {
 
 	@Override
 	@Bean
-	public PlaintextPasswordEncoder passwordEncoder() {
-		return new PlaintextPasswordEncoder();
-	}
-
-	@Override
-	@Bean
 	public PictureService pictureService() {
 		return new PictureServiceImpl();
 	}
@@ -136,15 +128,7 @@ public class GoogleAppEngineConfig implements GoDatingTestingConfig {
 	@Override
 	@Bean
 	public QueueManager queueManager() {
-		return new TestQueueService();
-	}
-
-	@Override
-	@Bean
-	public ReflectionSaltSource saltSource() {
-		final ReflectionSaltSource salt = new ReflectionSaltSource();
-		salt.setUserPropertyToUse("salt");
-		return salt;
+		return new TestQueueManager();
 	}
 
 	@Override
